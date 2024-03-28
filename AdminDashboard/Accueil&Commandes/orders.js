@@ -120,3 +120,5 @@ const Orders = [
         status: 'Processing'
     }
 ];
+
+console.log(Orders);
