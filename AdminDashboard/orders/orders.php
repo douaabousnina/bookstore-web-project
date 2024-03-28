@@ -17,7 +17,7 @@
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <img src="logo.jpg">
+                    <img src="../photos/logo.jpg">
                     <h2 id="f1">Book<span id="f2">ini</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -34,24 +34,25 @@
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="home.html">
+                <a href="../acceuiladmin.php">
                     <span class="material-icons-sharp">
                         home
                     </span>
                     <h3>Home</h3>
-                    <a href="#" >
-                        <span class="material-icons-sharp">
-                            inventory
-                        </span>
-                        <h3>Orders</h3>
-                    </a>
-                <a href="#" class="active">
+                </a>
+                <a href="../orders/orders.php" class="active">
+                    <span class="material-icons-sharp">
+                        inventory
+                    </span>
+                    <h3>Orders</h3>
+                </a>
+                <a href="../books/books.php">
                     <span class="material-symbols-outlined">
                         auto_stories
                     </span>
                     <h3>Books</h3>
                 </a>
-                <a href="#">
+                <a href="../clients/clients.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
@@ -69,21 +70,21 @@
 
         <!-- Main Content -->
         <main>
-            <h1>Books</h1>
-            <div class="books-table">
+            <h1>Orders</h1>
+            <div class="recent-orders">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>User</th>
                             <th>Book Name</th>
-                            <th>Author</th>
-                            <th>Quantity</th>
-                            
+                            <th>Order Date</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>      
+            </div>
+            <!-- End of Orders -->         
         </main>
         <!-- End of Main Content -->
 
@@ -109,16 +110,15 @@
                         <p>Hey, <b>Admin</b></p>
                     </div>
                     <div class="profile-photo">
-                        <img src="profile-1.jpg">
+                    <img src="../photos/profile-1.jpg">
                     </div>
 
             </div>
             <!-- End of Nav -->
         </div>
     </div>
-    
-    <script src='Books.js' ></script>
-    <script src='../Accueil&Commandes/index.js'></script>
+    <script src="Orders.js"></script>
+    <script src="../index.js"></script>
 </body>
 
 </html>
