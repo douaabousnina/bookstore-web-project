@@ -26,6 +26,7 @@ if (typeof Orders !== 'undefined' && Orders.length > 0) {
         const trContent = `
             <td>${order.userName}</td>
             <td>${order.bookName}</td>
+            <td>${order.bookId}</td>
             <td>${order.orderDate}</td>
             <td class="${order.status === 'Pending' ? 'danger' : order.status === 'Processing' ? 'warning' : 'success'}">${order.status}</td>
         `;
