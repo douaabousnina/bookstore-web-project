@@ -46,13 +46,13 @@
                     </span>
                     <h3>Orders</h3>
                 </a>
-                <a href="../books/books.php" >
+                <a href="../books/books.php" class="active">
                     <span class="material-symbols-outlined">
                         auto_stories
                     </span>
                     <h3>Books</h3>
                 </a>
-                <a href="../clients/clients.php" class="active">
+                <a href="../clients/clients.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
@@ -70,15 +70,15 @@
 
         <!-- Main Content -->
         <main>
-            <h1>Users</h1>
-            <div class="users-table">
+            <h1>Books</h1>
+            <div class="books-table">
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role </th>
+                            <th>Book Name</th>
+                            <th>Author</th>
+                            <th>Quantity</th>
                             
                         </tr>
                     </thead>
@@ -118,7 +118,7 @@
         </div>
     </div>
     
-    <script src="Clients.js"></script>
+    <script src='Books.js' ></script>
     <script src="../index.js"></script>
 </body>
 

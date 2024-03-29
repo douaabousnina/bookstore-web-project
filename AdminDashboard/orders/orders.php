@@ -40,19 +40,19 @@
                     </span>
                     <h3>Home</h3>
                 </a>
-                <a href="../orders/orders.php" >
+                <a href="../orders/orders.php" class="active">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
                     <h3>Orders</h3>
                 </a>
-                <a href="../books/books.php" >
+                <a href="../books/books.php">
                     <span class="material-symbols-outlined">
                         auto_stories
                     </span>
                     <h3>Books</h3>
                 </a>
-                <a href="../clients/clients.php" class="active">
+                <a href="../clients/clients.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
@@ -70,21 +70,21 @@
 
         <!-- Main Content -->
         <main>
-            <h1>Users</h1>
-            <div class="users-table">
+            <h1>Orders</h1>
+            <div class="recent-orders">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role </th>
-                            
+                            <th>User</th>
+                            <th>Book Name</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>      
+            </div>
+            <!-- End of Orders -->         
         </main>
         <!-- End of Main Content -->
 
@@ -117,8 +117,7 @@
             <!-- End of Nav -->
         </div>
     </div>
-    
-    <script src="Clients.js"></script>
+    <script src="Orders.js"></script>
     <script src="../index.js"></script>
 </body>
 
