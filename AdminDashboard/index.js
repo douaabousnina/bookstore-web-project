@@ -1,6 +1,8 @@
 const sideMenu = document.querySelector('aside');
 const menuBtn = document.getElementById('menu-btn');
 const closeBtn = document.getElementById('close-btn');
+const editBtn = document.getElementById('edit-btn');
+const deleteBtn = document.getElementById('delete-btn');
 
 const darkMode = document.querySelector('.dark-mode');
 
@@ -16,6 +18,15 @@ darkMode.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode-variables');
     darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
     darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
+})
+
+
+editBtn.addEventListener('click', () => {
+    alert("mmm");
+})
+
+deleteBtn.addEventListener('click', ()=>{
+    
 })
 
 
@@ -56,9 +67,6 @@ if (typeof Books !== 'undefined' && Books.length > 0) {
                         delete
                     </span>
                 </button>
-                
-
-                
             </td>
         `;
         tr.innerHTML = trContent;
@@ -75,6 +83,19 @@ if (typeof Clients !== 'undefined' && Clients.length > 0) {
             <td>${user.username}</td>
             <td>${user.email}</td>
             <td>${user.role}</td>
+            <td>
+                <button>
+                    <span class="material-symbols-outlined edit-btn">
+                        edit
+                    </span>
+                </button>
+
+                <button> 
+                    <span class="material-symbols-outlined delete-btn">
+                        delete
+                    </span>
+                </button>
+            </td>
         `;
         tr.innerHTML = trContent;
         document.querySelector('.users-table table tbody').appendChild(tr);
