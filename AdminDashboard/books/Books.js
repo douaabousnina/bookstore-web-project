@@ -1,21 +1,15 @@
-const Books = [
-    {
-        id: 1,
-        title: "Le Petit Prince",
-        author: "Antoine de Saint-Exupéry",
-        quantity: 10
-    },
-    {
-        id: 2,
-        title: "L'Étranger",
-        author: "Albert Camus",
-        quantity: 5
-    },
-    {
-        id: 3,
-        title: "Les Misérables",
-        author: "Victor Hugo",
-        quantity: 8
+class Book {
+    constructor(id, title, author, quantity) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.quantity = quantity;
     }
-    // Add more book objects as needed
+}
+
+
+const Books = [
+    new Book(1, "Le Petit Prince", "Antoine de Saint-Exupéry", 10),
+    new Book(2, "L'Étranger", "Albert Camus", 5),
+    new Book(3, "Les Misérables", "Victor Hugo", 8)
 ];

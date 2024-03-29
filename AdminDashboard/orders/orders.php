@@ -13,7 +13,6 @@
 <body>
 
     <div class="container">
-        <!-- Sidebar Section -->
         <aside>
             <div class="toggle">
                 <div class="logo">
@@ -66,9 +65,9 @@
                 </a>
             </div>
         </aside>
-        <!-- End of Sidebar Section -->
+        
 
-        <!-- Main Content -->
+
         <main>
             <h1>Orders</h1>
             <div class="recent-orders">
@@ -83,12 +82,11 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>
-            <!-- End of Orders -->         
+            </div>       
         </main>
-        <!-- End of Main Content -->
 
-        <!-- Right Section -->
+
+
         <div class="right-section">
             <div class="nav">
                 <button id="menu-btn">
@@ -113,8 +111,7 @@
                     <img src="../photos/profile-1.jpg">
                     </div>
 
-            </div>
-            <!-- End of Nav -->
+            </div> 
         </div>
     </div>
     <script src="Orders.js"></script>

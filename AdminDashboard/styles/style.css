@@ -726,4 +726,6 @@ main .recent-orders, .books-table, .users-table, a{
 
 }
 
-
+.edit-btn, .delete-btn {
+    cursor: pointer !important;
+}

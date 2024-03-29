@@ -13,7 +13,6 @@
 <body>
 
     <div class="container">
-        <!-- Sidebar Section -->
         <aside>
             <div class="toggle">
                 <div class="logo">
@@ -66,9 +65,9 @@
                 </a>
             </div>
         </aside>
-        <!-- End of Sidebar Section -->
+        
 
-        <!-- Main Content -->
+
         <main>
             <h1>Users</h1>
             <div class="users-table">
@@ -79,16 +78,16 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>Role </th>
-                            
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>      
         </main>
-        <!-- End of Main Content -->
+        
 
-        <!-- Right Section -->
+
         <div class="right-section">
             <div class="nav">
                 <button id="menu-btn">
@@ -114,7 +113,6 @@
                     </div>
 
             </div>
-            <!-- End of Nav -->
         </div>
     </div>
     

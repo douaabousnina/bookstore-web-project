@@ -1,63 +1,21 @@
-const Clients = [
-    {
-        id: 1,
-        username: "john_doe",
-        email: "john.doe@example.com",
-        role: "admin"
-    },
-    {
-        id: 2,
-        username: "jane_smith",
-        email: "jane.smith@example.com",
-        role: "user"
-    },
-    {
-        id: 3,
-        username: "alice_walker",
-        email: "alice.walker@example.com",
-        role: "user"
-    },
-    {
-        id: 4,
-        username: "bob_jackson",
-        email: "bob.jackson@example.com",
-        role: "user"
-    },
-    {
-        id: 5,
-        username: "emma_davis",
-        email: "emma.davis@example.com",
-        role: "user"
-    },
-    {
-        id: 6,
-        username: "michael_johnson",
-        email: "michael.johnson@example.com",
-        role: "user"
-    },
-    {
-        id: 7,
-        username: "sarah_white",
-        email: "sarah.white@example.com",
-        role: "user"
-    },
-    {
-        id: 8,
-        username: "william_brown",
-        email: "william.brown@example.com",
-        role: "user"
-    },
-    {
-        id: 9,
-        username: "olivia_wilson",
-        email: "olivia.wilson@example.com",
-        role: "user"
-    },
-    {
-        id: 10,
-        username: "david_martinez",
-        email: "david.martinez@example.com",
-        role: "user"
+class Client {
+    constructor(id,username,email,role) {
+        this.id=id;
+        this.username=username;
+        this.email=email;
+        this.role=role
     }
-    // Add more user objects as needed
+}
+
+const Clients = [
+    new Client(1, "john_doe", "john.doe@example.com", "admin"),
+    new Client(2, "jane_smith", "jane.smith@example.com", "user"),
+    new Client(3, "alice_walker", "alice.walker@example.com", "user"),
+    new Client(4, "bob_jackson", "bob.jackson@example.com", "user"),
+    new Client(5, "emma_davis", "emma.davis@example.com", "user"),
+    new Client(6, "michael_johnson", "michael.johnson@example.com", "user"),
+    new Client(7, "sarah_white", "sarah.white@example.com", "user"),
+    new Client(8, "william_brown", "william.brown@example.com", "user"),
+    new Client(9, "olivia_wilson", "olivia.wilson@example.com", "user"),
+    new Client(10, "david_martinez", "david.martinez@example.com", "user")
 ];

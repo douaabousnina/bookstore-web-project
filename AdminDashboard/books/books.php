@@ -13,7 +13,6 @@
 <body>
 
     <div class="container">
-        <!-- Sidebar Section -->
         <aside>
             <div class="toggle">
                 <div class="logo">
@@ -66,9 +65,9 @@
                 </a>
             </div>
         </aside>
-        <!-- End of Sidebar Section -->
+        
 
-        <!-- Main Content -->
+
         <main>
             <h1>Books</h1>
             <div class="books-table">
@@ -79,16 +78,16 @@
                             <th>Book Name</th>
                             <th>Author</th>
                             <th>Quantity</th>
-                            
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>      
         </main>
-        <!-- End of Main Content -->
+        
 
-        <!-- Right Section -->
+
         <div class="right-section">
             <div class="nav">
                 <button id="menu-btn">

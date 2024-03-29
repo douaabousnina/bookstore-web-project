@@ -44,6 +44,22 @@ if (typeof Books !== 'undefined' && Books.length > 0) {
             <td>${book.title}</td>
             <td>${book.author}</td>
             <td>${book.quantity}</td>
+            <td>
+                <button>
+                    <span class="material-symbols-outlined edit-btn">
+                        edit
+                    </span>
+                </button>
+
+                <button> 
+                    <span class="material-symbols-outlined delete-btn">
+                        delete
+                    </span>
+                </button>
+                
+
+                
+            </td>
         `;
         tr.innerHTML = trContent;
         document.querySelector('.books-table table tbody').appendChild(tr);
