@@ -478,6 +478,40 @@ main .recent-orders, .books-table, .users-table, a{
 
 }
 
+
+@media screen and (max-width: 1700px) {
+    
+    aside .sidebar a:last-child {
+        position: relative;
+        margin-top: 1.8rem;
+    }
+    
+    main .home {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    main .recent-orders,
+    .books-table,
+    .users-table {
+        width: 83%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-43%);
+        margin: 2rem 0 0 0.8rem;
+    }
+
+    main .recent-orders,
+    .books-table,
+    .users-table,
+    table {
+        width: 80vw;
+    }
+
+}
+
+
+
 .right-section{
     margin-top: 1.4rem;
 }
@@ -809,7 +843,7 @@ button {
 .input-group input {
     width: 100%;
     font-family: 'Poppins', sans-serif;
-
+    color: var(--color-info-dark);
     padding: 0 .5rem 0 .3rem;
     background-color: transparent;
     border:none;
