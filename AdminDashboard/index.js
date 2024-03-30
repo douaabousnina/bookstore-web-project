@@ -46,8 +46,8 @@ if (typeof Books !== 'undefined' && Books.length > 0) {
             <td>${book.title}</td>
             <td>${book.author}</td>
             <td>${book.quantity}</td>
-            <td>
-                <button class "edit-btn">
+            <td class="action-btns">
+                <button class="edit-btn" onClick="location.href='editBook.php'">
                     <span class="material-symbols-outlined">
                         edit
                     </span>
@@ -75,7 +75,7 @@ if (typeof Clients !== 'undefined' && Clients.length > 0) {
             <td>${user.email}</td>
             <td>${user.role}</td>
             <td>
-                <button class "edit-btn">
+                <button class="edit-btn" onClick="location.href='editClient.php'">
                     <span class="material-symbols-outlined">
                         edit
                     </span>
