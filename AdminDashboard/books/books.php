@@ -81,7 +81,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>ISBN</th>
                             <th>Book Name</th>
                             <th>Author</th>
                             <th>Quantity</th>

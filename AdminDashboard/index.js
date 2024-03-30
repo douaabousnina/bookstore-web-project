@@ -42,7 +42,7 @@ if (typeof Books !== 'undefined' && Books.length > 0) {
     Books.forEach(book => {
         const tr = document.createElement('tr');
         const trContent = `
-            <td>${book.id}</td>
+            <td>${book.isbn}</td>
             <td>${book.title}</td>
             <td>${book.author}</td>
             <td>${book.quantity}</td>

@@ -82,7 +82,7 @@
 
         <form class="edit-book">
             <label for="id">ID:</label>
-            <input type="text" id="id" name="id" placeholder="ID">
+            <input type="text" id="id" name="id" placeholder="ID" readonly>
 
             <label for="bookName">Book Name:</label>
             <input type="text" id="bookName" name="bookName" placeholder="Book name">
