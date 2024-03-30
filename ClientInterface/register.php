@@ -20,7 +20,7 @@
   <header>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.php">
           <i class="fas fa-book-reader fa-2x mx-3"></i>Books</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
           aria-label="Toggle navigation">
@@ -30,31 +30,25 @@
           <div class="mr-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="#">HOME
+              <a class="nav-link" href="index.php">HOME
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">COURSE</a>
+              <a class="nav-link" href="#">BOOKS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="cart.php">CART</a>
             </li>
-            <li class="nav-item dropdown">
-              <div class="dropdown">
-                <a href="#" class="nav-link">PAGES</a>
-                <div class="dropdown-content">
-                  <a href="#">Generic</a>
-                  <a href="#">Element</a>
-                </div>
-              </div>
-            </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">FACT</a>
+              <a class="nav-link" href="faq.php">FAQ</a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="#">ABOUT</a>
+              <a class="nav-link" href="register.php">SIGN IN</a>
             </li>
+
+
           </ul>
         </div>
       </nav>
