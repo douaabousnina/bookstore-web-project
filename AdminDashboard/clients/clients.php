@@ -70,6 +70,13 @@
 
         <main>
             <h1>Users</h1>
+            <button class="add-btn">Add user</button>
+            <div class="input-group">
+                <input type="search" placeholder="Search a user...">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </div>
             <div class="users-table">
                 <table>
                     <thead>
@@ -118,6 +125,7 @@
     
     <script src="Clients.js"></script>
     <script src="../index.js"></script>
+    <script src="../search.js"></script>
 </body>
 
 </html>

@@ -70,6 +70,13 @@
 
         <main>
             <h1>Books</h1>
+            <button class="add-btn">Add book</button>
+            <div class="input-group">
+                <input type="search" placeholder="Search a book...">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </div>
             <div class="books-table">
                 <table>
                     <thead>
@@ -113,12 +120,12 @@
                     </div>
 
             </div>
-            <!-- End of Nav -->
         </div>
     </div>
     
     <script src='Books.js' ></script>
     <script src="../index.js"></script>
+    <script src="../search.js"></script>
 </body>
 
 </html>

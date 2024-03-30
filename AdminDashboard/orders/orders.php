@@ -70,6 +70,12 @@
 
         <main>
             <h1>Orders</h1>
+            <div class="input-group">
+                <input type="search" placeholder="Search an order...">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </div>
             <div class="recent-orders">
                 <table>
                     <thead>
@@ -116,6 +122,7 @@
     </div>
     <script src="Orders.js"></script>
     <script src="../index.js"></script>
+    <script src="../search.js"></script>
 </body>
 
 </html>

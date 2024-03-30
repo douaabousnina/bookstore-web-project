@@ -726,3 +726,122 @@ main .recent-orders, .books-table, .users-table, a{
 
 }
 
+button {
+    color: var(--color-info-dark);
+    background-color: var(--color-white);
+}
+
+.delete-btn , .edit-btn {
+    cursor: pointer;
+}
+
+.add-btn {
+    background: var(--color-info-dark);
+    color: var(--color-white);
+    border-radius: 999px;
+    box-shadow: var(--color-dark-variant) 0 10px 20px -10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+
+
+.add-btn:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px;
+}
+
+.add-btn:focus {
+    box-shadow: var(--color-background) 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px;
+}
+
+
+
+.input-group {
+    width: 500px;
+    height: 40px;
+    background-color: var(--color-background);
+    padding: 0 .8rem;
+    border-radius: 2rem;
+    box-shadow: 0 .05rem .2rem #0002;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+    margin-bottom: 10px;
+    transition: .2s;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.input-group:hover {
+    width: 550px;
+    background-color: var(--color-background);
+    box-shadow: 0 .1rem .4rem #0002;
+}
+
+.input-group span {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-bottom: 7px;
+    margin-right: 4px;
+}
+
+.input-group input {
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+
+    padding: 0 .5rem 0 .3rem;
+    background-color: transparent;
+    border:none;
+    outline: none;
+}
+
+
+
+tbody tr {
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+tbody tr.hide {
+    opacity: 0;
+    padding: 0;
+    height: 0;
+    transform: translateX(160%);
+}
+
+tbody tr:hover {
+    background-color: #fff6 !important;
+}
+
+tbody tr td {
+    transition: .2s ease-in-out;
+}
+
+tbody tr.hide td {
+    padding: 0;
+    height: 0;
+    font: 0 / 0 sans-serif;
+    transition: .2s ease-in-out .5s;
+}
+

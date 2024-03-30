@@ -21,15 +21,6 @@ darkMode.addEventListener('click', () => {
 })
 
 
-editBtn.addEventListener('click', () => {
-    alert("mmm");
-})
-
-deleteBtn.addEventListener('click', ()=>{
-    
-})
-
-
 
 if (typeof Orders !== 'undefined' && Orders.length > 0) {
     Orders.forEach(order => {
@@ -56,14 +47,14 @@ if (typeof Books !== 'undefined' && Books.length > 0) {
             <td>${book.author}</td>
             <td>${book.quantity}</td>
             <td>
-                <button>
-                    <span class="material-symbols-outlined edit-btn">
+                <button class "edit-btn">
+                    <span class="material-symbols-outlined">
                         edit
                     </span>
                 </button>
 
-                <button> 
-                    <span class="material-symbols-outlined delete-btn">
+                <button class="delete-btn" onClick='deleteButtonHandler(this)' > 
+                    <span class="material-symbols-outlined">
                         delete
                     </span>
                 </button>
@@ -84,14 +75,14 @@ if (typeof Clients !== 'undefined' && Clients.length > 0) {
             <td>${user.email}</td>
             <td>${user.role}</td>
             <td>
-                <button>
-                    <span class="material-symbols-outlined edit-btn">
+                <button class "edit-btn">
+                    <span class="material-symbols-outlined">
                         edit
                     </span>
                 </button>
 
-                <button> 
-                    <span class="material-symbols-outlined delete-btn">
+                <button class="delete-btn" onClick='deleteButtonHandler(this)' > 
+                    <span class="material-symbols-outlined">
                         delete
                     </span>
                 </button>
@@ -101,3 +92,10 @@ if (typeof Clients !== 'undefined' && Clients.length > 0) {
         document.querySelector('.users-table table tbody').appendChild(tr);
     });
 }
+
+
+
+const deleteButtonHandler = (btn) => {
+    let row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+} 
