@@ -38,7 +38,7 @@
               <a class="nav-link" href="#">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="cart.php">CART</a>
+              <a class="nav-link" href="./cart/src/cart.php">CART</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="faq.php">FAQ</a>
