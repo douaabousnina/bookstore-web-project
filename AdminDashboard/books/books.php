@@ -16,7 +16,7 @@
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <img src="../photos/logo.jpg">
+                    <img src="../photos/logo.png">
                     <h2 id="f1">Book<span id="f2">ini</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -113,7 +113,7 @@
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Admin</b></p>
+                        <p><b>Admin</b></p>
                     </div>
                     <div class="profile-photo">
                     <img src="../photos/profile-1.jpg">
