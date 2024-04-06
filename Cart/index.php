@@ -14,10 +14,9 @@
   <link rel="stylesheet" href="./Style.css" />
   <link rel="stylesheet" href="./cart.css" />
   <link rel="stylesheet" href="./mobile-style.css">
-  <script src="cart.js"></script>
 </head>
 
-<body onload="load()">
+<body>
   <header>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg">
@@ -31,15 +30,14 @@
           <div class="mr-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="/BookStore">HOME
-                <span class="sr-only">(current)</span>
+              <a class="nav-link" href="../">HOME
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Books">BOOKS</a>
+              <a class="nav-link" href="../Books/">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">CART</a>
+              <a class="nav-link" href="../Cart/">CART <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
               <div class="dropdown">
@@ -68,31 +66,34 @@
           <p>
             Pay For Your Books And Start Reading!
           </p>
-          <button class="btn btn-light px-5 py-2 primary-btn">
-            By now for <span id="total-price">199.99</span> DT
+          <p>
+            Total Price : <s><span id="total-price">199.99</span> TND</s> &nbsp;&nbsp; 50% off
+          </p>
+          <button class="btn btn-light px-5 py-2 primary-btn" onclick="buy_now()">
+            By now for <span id="total-reduced-price">199.99</span> TND
           </button>
         </div>
         <div class="col-md-5 col-sm-12  h-25">
           <ul class="books-in-cart">
             <?php
-              include 'book.php';
+              include '../connect.php';
               $host = 'localhost';
-              $dbname = 'db1';
-              $user = 'postgres';
-              $pass = 'ChickenWings';
-              $port = '5432';
+              $dbname = 'bookini';
+              $user = 'root';
+              $pass = '';
+              $port = '3306';
               // establish a connection
-              $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $pass);
+              $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $pass);
               // prepare a statement to be executed
-              $stmt = $pdo->prepare('SELECT book.isbn as isbn, book.title as title, book.price as price, command.dataofpurchase as "date"
-              from book, command
-              where command.isbn = book.isbn and not command.is_purchased;');
+              $stmt = $pdo->prepare('SELECT book.bid AS bid, book.btitle AS title, book.bdescription AS description, book.bauthor AS author, book.bprice AS price, book.bcoverid AS cover
+              FROM book, command
+              WHERE book.bid = command.bid AND command.cid = 1 AND command.state = "pending";');
               // execute the statement
               $stmt->execute();
               // fetch the results from database which will be in a dictionary format
               $books = array();
               while ($row = $stmt->fetch()) {
-                $book = new Book($row['title'], $row['isbn'], $row['price']);
+                $book = new Book($row['title'], $row['bid'], $row['price'], $row['author'], $row['description'], $row['cover']);
                 array_push($books, $book);
               }
               // close the connection
@@ -103,35 +104,19 @@
             foreach ($books as $book) {?>
             <li class="cart-item">
               <div class="book-img">
-                <img src="cover.jpg" alt="Book"/>
+                <img src=<?php echo '"https://covers.openlibrary.org/b/olid/'.$book->getCover().'-L.jpg"'; ?> alt="Book"/>
               </div>
               <div class="book-description">
-                <div class="book-title"><?php echo $book->getTitle(); ?></div>
-                <div class="book-author">Albert Einstein</div>
-                <div class="book-description">An Introduction for Physicists</div>
+                <div class="book-title"><?php echo $book->getTitle();?></div>
+                <div class="book-author"><?php echo $book->getAuthor(); ?></div>
+                <div class="book-description"><?php echo substr($book->getDescription(), 0, min(40, strlen($book->getDescription()))) . "..."; ?></div>
                 <div class="book-price"><span class="price-tag"></span><span class="price-text"><span class="price"><?php echo $book->getPrice();?></span> DT</span></div>
               </div>
               <div class="remove-icon">
-                <input type="button" class="remove-btn">
+                <input type="button" class="remove-btn" onclick=<?php echo '"' . "remove_from_cart('".$book->getIsbn()."')". '"' ?>>
               </div>
             </li>
             <?php } ?>
-
-            
-            <li class="cart-item">
-              <div class="book-img">
-                <img src="cover.jpg" alt="Book"/>
-              </div>
-              <div class="book-description">
-                <div class="book-title">General Relativity</div>
-                <div class="book-author">Albert Einstein</div>
-                <div class="book-description">An Introduction for Physicists</div>
-                <div class="book-price"><span class="price-tag"></span><span class="price-text"><span class="price">128</span> DT</span></div>
-              </div>
-              <div class="remove-icon">
-                <input type="button" class="remove-btn">
-              </div>
-            </li>
           </ul>
         </div>
       </div>
@@ -142,9 +127,9 @@
       <div class="row text-left">
         <div class="col-md-5 col-sm-5">
           <h4 class="text-light">About us</h4>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum maxime ea similique illum corrupti</p>
-          <p class="pt-4 text-muted">Copyright ©2019 All rights reserved | This template is made with by
-            <span> Daily Tuition</span>
+          <p class="text-muted">We are 5 enthusiastic students who would like to revolutionize the defintion of technology</p>
+          <p class="pt-4 text-muted">Copyright ©2024 All rights reserved | This website is made by
+            <span> Iheb Gafsi</span> <span> Douaa Bousnina</span> <span> Rayene Knani</span> <span> Farah Ayeb</span> <span> Omar Sagga</span>
           </p>
         </div>
         <div class="col-md-5 col-sm-12">
@@ -156,7 +141,7 @@
                 <input type="text" class="form-control bg-dark text-white" id="inlineFormInputGroupUsername2" placeholder="Email">
                 <div class="input-group-prepend">
                   <div class="input-group-text">
-                    <i class="fas fa-arrow-right"></i>
+                    <a class="fas fa-arrow-right" href="mailto:iheb.gafsi@insat.ucar.tn"></a>
                   </div>
                 </div>
               </div>
@@ -182,7 +167,8 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-  <script src="./main.js"></script>
+  <script src="cart.js"></script>
+  <script>$(document).ready(load);</script>
 </body>
 
 </html>

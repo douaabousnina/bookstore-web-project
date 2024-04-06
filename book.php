@@ -5,14 +5,16 @@ class Book{
     private $description;
     private $price;
     private $isbn;
+    private $coverid;
 
-    function __construct($title, $isbn, $price, $author='', $description='')
+    function __construct($title, $isbn, $price, $author='', $description='', $coverid='')
     {
         $this->title = $title;
         $this->author = $author;
         $this->description = $description;
         $this->price = $price;
         $this->isbn = $isbn;
+        $this->coverid = $coverid;
     }
 
     function getTitle(){
@@ -55,5 +57,12 @@ class Book{
         $this->isbn = $isbn;
     }
 
+    function getCover(){
+        return $this->coverid;
+    }
+
+    function setCover($coverid){
+        $this->coverid = $coverid;
+    }
 }
 ?>
