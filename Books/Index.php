@@ -19,8 +19,8 @@
   <header>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">
-          <i class="fas fa-book-reader fa-2x mx-3"></i>Bookini</a>
+        <a class="navbar-brand" href="../Index.php">
+          <i class="fas fa-book-reader fa-2x mx-3"></i>Books</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-align-right text-light"></i>
         </button>
@@ -28,33 +28,30 @@
           <div class="mr-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="../">HOME</a>
+              <a class="nav-link" href="../Index.php">HOME
+                <span class="sr-only">(current)</span>
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Books">BOOKS<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="../Books/Index.php">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Cart">CART</a>
-            </li>
-            <li class="nav-item dropdown">
-              <div class="dropdown">
-                <a href="#" class="nav-link">PAGES</a>
-                <div class="dropdown-content">
-                  <a href="#">Generic</a>
-                  <a href="#">Element</a>
-                </div>
-              </div>
+              <a class="nav-link" href="../Cart/index.php">CART</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">FACT</a>
+              <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="#">ABOUT</a>
+              <a class="nav-link" href="../Register/register.php">SIGN IN</a>
             </li>
+
           </ul>
         </div>
       </nav>
     </div>
+
+
     <div class="container text-center">
       <div class="row">
         <div class="col-md-7 col-sm-12  text-white">
