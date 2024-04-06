@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="../AdminDashboard/styles/style.css">
+    <link rel="stylesheet" href="../AdminDashboard/styles/acceuil.css">
     <title>Admin Dashboard</title>
 </head>
 
@@ -16,7 +16,7 @@
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <img src="../AdminDashboard/photos/logo.jpg">
+                    <img src="../AdminDashboard/photos/logo.png">
                     <h2 id="f1">Book<span id="f2">ini</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -143,6 +143,7 @@
                         <tr>
                             <th>User</th>
                             <th>Book Name</th>
+                            <th>Book  ID</th>
                             <th>Order Date</th>
                             <th>Status</th>
                         </tr>
@@ -171,7 +172,7 @@
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Admin</b></p>
+                        <p><b>Admin</b></p>
                     </div>
                     <div class="profile-photo">
                         <img src="../AdminDashboard/photos/profile-1.jpg">
@@ -227,7 +228,6 @@
         </div>
     </div>
     <script src="RecOrders.js"></script>
-    <script src="index.js"></script>
 </body>
 
 </html>
