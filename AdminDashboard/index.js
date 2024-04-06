@@ -28,8 +28,22 @@ if (typeof Orders !== 'undefined' && Orders.length > 0) {
         const trContent = `
             <td>${order.userName}</td>
             <td>${order.bookName}</td>
+            <td>${order.bookId}</td>
             <td>${order.orderDate}</td>
             <td class="${order.status === 'Pending' ? 'danger' : order.status === 'Processing' ? 'warning' : 'success'}">${order.status}</td>
+            <td class="action-btns">
+                <button class="edit-btn" onClick="location.href='editOrder.php'">
+                    <span class="material-symbols-outlined">
+                        edit
+                    </span>
+                </button>
+
+                <button class="delete-btn" onClick='deleteButtonHandler(this)' > 
+                    <span class="material-symbols-outlined">
+                        delete
+                    </span>
+                </button>
+            </td>
         `;
         tr.innerHTML = trContent;
         document.querySelector('table tbody').appendChild(tr);
