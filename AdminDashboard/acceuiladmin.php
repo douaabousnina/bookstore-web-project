@@ -13,7 +13,6 @@
 <body>
 
     <div class="container">
-        <!-- Sidebar Section -->
         <aside>
             <div class="toggle">
                 <div class="logo">
@@ -66,9 +65,7 @@
                 </a>
             </div>
         </aside>
-        <!-- End of Sidebar Section -->
 
-        <!-- Main Content -->
         <main>
             <h1>Home</h1>
             <!-- Home -->
@@ -138,10 +135,7 @@
                     </div>
                 </div>
             </div>
-            <!-- End of Analyses -->
 
-
-            <!-- Recent Orders Table -->
             <div class="recent-orders">
                 <h2>Recent Orders</h2>
                 <table>
@@ -156,13 +150,9 @@
                     <tbody></tbody>
                 </table>
                 <a href="../AdminDashboard/orders/orders.php">Show All</a>
-            </div>
-            <!-- End of Recent Orders -->
-            
+            </div>     
         </main>
-        <!-- End of Main Content -->
 
-        <!-- Right Section -->
         <div class="right-section">
             <div class="nav">
                 <button id="menu-btn">
@@ -234,7 +224,6 @@
                 </div>
 
             </div>
-            <!-- End of Nav -->
         </div>
     </div>
     <script src="RecOrders.js"></script>
