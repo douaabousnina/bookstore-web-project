@@ -11,9 +11,11 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="books.css" />
   <link rel="stylesheet" href="mobile-style.css">
+  <script src="books.js"></script>
 </head>
 
 <body>
+  <?php include '../connect.php'?>
   <header>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg">
@@ -26,15 +28,13 @@
           <div class="mr-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="/BookStore">HOME
-                <span class="sr-only">(current)</span>
-              </a>
+              <a class="nav-link" href="../">HOME</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="ClientInterface/Books">BOOKS</a>
+              <a class="nav-link" href="../Books">BOOKS<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="ClientInterface/Cart">CART</a>
+              <a class="nav-link" href="../Cart">CART</a>
             </li>
             <li class="nav-item dropdown">
               <div class="dropdown">
@@ -73,190 +73,171 @@
   <main>
     <!--Scientific Books-->
     <section class="book-sec">
-      <h2 class="book-category">Can't Miss Science and Fiction</h2>
+      <h2 class="book-category">Search, Read, And Purchase</h2>
       <div class="container">
         <div class="previous-list">
         </div>
-        <div class="book-list">
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
+        <div class="book-list" id="first-list">
+          <?php
+          if (isset($_GET['limit'])) {
+            $limit = $_GET['limit'];
+          }
+          $limit = 4;
+          $query = "SELECT bid as id, btitle as title, bauthor as author, bcoverid as coverid, bprice as price, bdescription as description
+                    FROM book 
+                    ORDER BY RAND()
+                    LIMIT $limit";
+          //echo $query . "<br>";
+          $stmt = $pdo->prepare($query);
+          $stmt->execute();
+          $books = array();
+          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $books[] = new Book($row['title'], $row['id'], $row['price'], $row['author'], $row['description'], $row['coverid']);
+          }?>
+          <?php foreach ($books as $book){?>
+            <div class="book-item" id=<?php echo '"book'.$book->getIsbn().'"'?>>
+            <a href=<?php echo '"../BookDetails/?id='.$book->getIsbn().'"'?>class="fill-div">
+              <img class="book-cover" src=<?php echo '"https://covers.openlibrary.org/b/olid/'.$book->getCover().'-L.jpg"'; ?> alt="book" />
+              <p class="book-title"><?php echo $book->getTitle(); ?></h5>
+                <p class="book-author"><?php echo $book->getAuthor()?></p>
+                <div class="price-area">
+                  <span class="price-tag"></span> &nbsp;
+                  <p class="book-price"><?php echo $book->getPrice()?> TND</p>
+                </div>
+            </a>
+            <button class="btn-add-to-cart" id=<?php echo '"btn'.$book->getIsbn().'"'?> onclick=<?php echo '"' . "add_to_cart('".$book->getIsbn()."')". '"' ?>>Add to Cart &nbsp; <span class="cart-tag"></span></button>
           </div>
+          <?php }?>
+          
           <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
+            <a href="../BookDetails/" class="fill-div">
+              <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
+              <p class="book-title">Book Title</h5>
+                <p class="book-author">Author</p>
+                <div class="price-area">
+                  <span class="price-tag"></span> &nbsp;
+                  <p class="book-price">15.99 TND</p>
+                </div>
+            </a>
             <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="next-list">
           </div>
         </div>
       </div>
-        <button class="load-more-btn">
-          Load More
-        </button>
+      <button class="load-more-btn" id="first-btn" onclick="first_clicked('first-list')">
+        Load More
+      </button>
     </section>
     <img class="page-breaker" src="../assets/page-breaker-1.jpg" />
     <section class="book-sec">
-      <h2 class="book-category">What About Literature?</h2>
+      <h2 class="book-category">Learning is always a plus</h2>
       <div class="container">
         <div class="previous-list">
         </div>
-        <div class="book-list">
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
+        <div class="book-list" id="second-list">
+          <?php
+          if (isset($_GET['limit'])) {
+            $limit = $_GET['limit'];
+          }
+          $limit = 4;
+          $query = "SELECT bid as id, btitle as title, bauthor as author, bcoverid as coverid, bprice as price, bdescription as description
+                    FROM book 
+                    ORDER BY RAND()
+                    LIMIT $limit";
+          //echo $query . "<br>";
+          $stmt = $pdo->prepare($query);
+          $stmt->execute();
+          $books = array();
+          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $books[] = new Book($row['title'], $row['id'], $row['price'], $row['author'], $row['description'], $row['coverid']);
+          }?>
+          <?php foreach ($books as $book){?>
+            <div class="book-item">
+            <a href=<?php echo '"../BookDetails/?id='.$book->getIsbn().'"'?>class="fill-div">
+              <img class="book-cover" src=<?php echo '"https://covers.openlibrary.org/b/olid/'.$book->getCover().'-L.jpg"'; ?> alt="book" />
+              <p class="book-title"><?php echo $book->getTitle(); ?></h5>
+                <p class="book-author"><?php echo $book->getAuthor()?></p>
+                <div class="price-area">
+                  <span class="price-tag"></span> &nbsp;
+                  <p class="book-price"><?php echo $book->getPrice()?> TND</p>
+                </div>
+            </a>
             <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
           </div>
+          <?php }?>
+          
           <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
+            <a href="../BookDetails/" class="fill-div">
+              <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
+              <p class="book-title">Book Title</h5>
+                <p class="book-author">Author</p>
+                <div class="price-area">
+                  <span class="price-tag"></span> &nbsp;
+                  <p class="book-price">15.99 TND</p>
+                </div>
+            </a>
             <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="next-list">
           </div>
         </div>
+      </div>
+      <button class="load-more-btn" id="first-btn" onclick="first_clicked('second-list')">
+        Load More
+      </button>
     </section>
     <img class="page-breaker" src="../assets/page-breaker-2.jpg" />
     <section class="book-sec">
-      <h2 class="book-category">Buy one and get 50% off for the second</h2>
+      <h2 class="book-category">Buy One and Get 50% Off for The Second</h2>
       <div class="container">
         <div class="previous-list">
         </div>
-        <div class="book-list">
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
+        <div class="book-list" id="third-list">
+          <?php
+          if (isset($_GET['limit'])) {
+            $limit = $_GET['limit'];
+          }
+          $limit = 4;
+          $query = "SELECT bid as id, btitle as title, bauthor as author, bcoverid as coverid, bprice as price, bdescription as description
+                    FROM book 
+                    ORDER BY RAND()
+                    LIMIT $limit";
+          //echo $query . "<br>";
+          $stmt = $pdo->prepare($query);
+          $stmt->execute();
+          $books = array();
+          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $books[] = new Book($row['title'], $row['id'], $row['price'], $row['author'], $row['description'], $row['coverid']);
+          }?>
+          <?php foreach ($books as $book){?>
+            <div class="book-item">
+            <a href=<?php echo '"../BookDetails/?id='.$book->getIsbn().'"'?>class="fill-div">
+              <img class="book-cover" src=<?php echo '"https://covers.openlibrary.org/b/olid/'.$book->getCover().'-L.jpg"'; ?> alt="book" />
+              <p class="book-title"><?php echo $book->getTitle(); ?></h5>
+                <p class="book-author"><?php echo $book->getAuthor()?></p>
+                <div class="price-area">
+                  <span class="price-tag"></span> &nbsp;
+                  <p class="book-price"><?php echo $book->getPrice()?> TND</p>
+                </div>
+            </a>
             <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
           </div>
+          <?php }?>
+          
           <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
+            <a href="../BookDetails/" class="fill-div">
+              <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
+              <p class="book-title">Book Title</h5>
+                <p class="book-author">Author</p>
+                <div class="price-area">
+                  <span class="price-tag"></span> &nbsp;
+                  <p class="book-price">15.99 TND</p>
+                </div>
+            </a>
             <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="book-item">
-            <img class="book-cover" src="https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg" alt="book" />
-            <p class="book-title">Book Title</h5>
-            <p class="book-author">Author</p>
-            <div class="price-area">
-              <span class="price-tag"></span> &nbsp;
-              <p class="book-price">15.99 TND</p>
-            </div>
-            <button class="btn-add-to-cart">Add to Cart &nbsp; <span class="cart-tag"></span></button>
-          </div>
-          <div class="next-list">
           </div>
         </div>
+      </div>
+      <button class="load-more-btn" id="first-btn" onclick="first_clicked('third-list')">
+        Load More
+      </button>
     </section>
   </main>
   <footer>

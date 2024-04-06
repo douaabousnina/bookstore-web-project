@@ -146,7 +146,7 @@
                   With supporting text below as a natural lead-in.
                 </p>
                 <div class="pricing">
-                  <h1>77.99 DT</h1>
+                  <h1>77.99 TND</h1>
                   <a href="#" class="btn btn-dark px-5 py-2 primary-btn mb-5">Purchase Now</a>
                 </div>
               </div>
@@ -160,7 +160,7 @@
                   With supporting text below as a natural lead-in.
                 </p>
                 <div class="pricing">
-                  <h1>99.99 DT</h1>
+                  <h1>99.99 TND</h1>
                   <a href="#" class="btn btn-dark px-5 py-2 primary-btn mb-5">Purchase Now</a>
                 </div>
               </div>
@@ -174,7 +174,7 @@
                   With supporting text below as a natural lead-in.
                 </p>
                 <div class="pricing">
-                  <h1>58.99 DT</h1>
+                  <h1>58.99 TND</h1>
                   <a href="#" class="btn btn-dark px-5 py-2 primary-btn mb-5">Purchase Now</a>
                 </div>
               </div>
