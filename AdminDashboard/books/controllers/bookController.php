@@ -53,6 +53,7 @@ class BookController
 
 
     //actual actions hhh
+
     /**
      * @return bookModel
      */
@@ -62,8 +63,6 @@ class BookController
             static::$bookModel = new BookModel();
         return static::$bookModel;
     }
-
-
 
     private static function validateBook($data)
     {
@@ -90,18 +89,18 @@ class BookController
             $errors .= '<li>Invalid price format!</li>';
         }
 
+        //Checking uniqueness
+        if(count(static::getBookModel()->where("bid",$data['bid']))==+1) $errors .= '<li>Book ID already exists!</li>';
+        if(count(static::getBookModel()->where("bcoverid",$data['bcoverid']))===1) $errors .= '<li>Cover ID already exists!</li>';
+
         return $errors;
     }
 
     public static function storeBookAction()
     {
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors = static::validateBook($_POST);
-
-            //check uniqueness of the id
-
-
+            
             if ($errors === '') {
                 $isCreated = static::getBookModel()
                     ->setBid($_POST['bid'])

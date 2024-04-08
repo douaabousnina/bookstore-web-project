@@ -1,5 +1,6 @@
 <?php 
 $title = "";
+
 ob_start(); ?>
 <a href="index.php?action=index" class="go-back">
     <span class="material-symbols-outlined">
@@ -31,8 +32,7 @@ ob_start(); ?>
     <label for="bprice">Price:</label>
     <input type="text" name="bprice" placeholder="Price">
 
-
-
+    
     <button type="submit">Add book</button>
 </form>
 
