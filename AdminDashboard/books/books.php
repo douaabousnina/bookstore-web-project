@@ -45,13 +45,13 @@
                     </span>
                     <h3>Orders</h3>
                 </a>
-                <a href="../books/books.php" >
+                <a href="../books/books.php" class="active">
                     <span class="material-symbols-outlined">
                         auto_stories
                     </span>
                     <h3>Books</h3>
                 </a>
-                <a href="../clients/clients.php" class="active">
+                <a href="../clients/clients.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
@@ -69,22 +69,22 @@
 
 
         <main>
-            <h1>Users</h1>
-            <button class="add-btn">Add user</button>
+            <h1>Books</h1>
+            <button class="add-btn">Add book</button>
             <div class="input-group">
-                <input type="search" placeholder="Search a user...">
+                <input type="search" placeholder="Search a book...">
                 <span class="material-symbols-outlined">
                     search
                 </span>
             </div>
-            <div class="users-table">
+            <div class="books-table">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role </th>
+                            <th>ISBN</th>
+                            <th>Book Name</th>
+                            <th>Author</th>
+                            <th>Quantity</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -123,7 +123,7 @@
         </div>
     </div>
     
-    <script src="Clients.js"></script>
+    <script src='Books.js' ></script>
     <script src="../index.js"></script>
     <script src="../search.js"></script>
 </body>

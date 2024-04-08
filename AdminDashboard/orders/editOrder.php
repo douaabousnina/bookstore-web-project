@@ -39,19 +39,19 @@
                     </span>
                     <h3>Home</h3>
                 </a>
-                <a href="../orders/orders.php" >
+                <a href="../orders/orders.php" class="active">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
                     <h3>Orders</h3>
                 </a>
-                <a href="../books/books.php" >
+                <a href="../books/books.php">
                     <span class="material-symbols-outlined">
                         auto_stories
                     </span>
                     <h3>Books</h3>
                 </a>
-                <a href="../clients/clients.php" class="active">
+                <a href="../clients/clients.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
@@ -65,35 +65,48 @@
                 </a>
             </div>
         </aside>
-        
-
 
         <main>
-            <h1>Users</h1>
-            <button class="add-btn">Add user</button>
-            <div class="input-group">
-                <input type="search" placeholder="Search a user...">
-                <span class="material-symbols-outlined">
-                    search
-                </span>
-            </div>
-            <div class="users-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role </th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>      
-        </main>
-        
 
+        <a href="orders.php" class="go-back">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+            <h3>Go back</h3>
+        </a>
+        <?php 
+            include("../../connect.php");
+            $cid = $_GET['cid'];
+            $bid = $_GET['bid'];
+            $query = "SELECT * FROM command WHERE cid=:cid AND bid=:bid";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':cid', $cid);
+            $stmt->bindParam(':bid', $bid);
+            $stmt->execute();
+            $arr = $stmt->fetch(PDO::FETCH_ASSOC);
+        ?>
+        <form class="edit-book" action="update.php" method="POST">
+            <label for="cid">Client ID:</label>
+            <input type="text" id="cid" name="cid" value="<?=$arr['cid']?>" readonly/><br />
+
+            <label for="bid">Book ID:</label>
+            <input type="text" id="bid" name="bid" value="<?=$arr['bid']?>" readonly><br />
+
+            <label for="cdate">Order Date:</label>
+            <input type="date" id="cdate" name="cdate" placeholder="New Order Date"><br />
+            
+            <label for="state">Status:</label>
+            <select id="state" name="state" placeholder="Update Status"><br />
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Delivered">Delivered</option>
+            </select>
+            
+            <button type="submit">Submit changes</button>
+        
+        </form>
+
+        </main>
 
         <div class="right-section">
             <div class="nav">
@@ -123,7 +136,7 @@
         </div>
     </div>
     
-    <script src="Clients.js"></script>
+    <script src='Books.js' ></script>
     <script src="../index.js"></script>
     <script src="../search.js"></script>
 </body>

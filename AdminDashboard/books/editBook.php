@@ -45,13 +45,13 @@
                     </span>
                     <h3>Orders</h3>
                 </a>
-                <a href="../books/books.php" >
+                <a href="../books/books.php" class="active">
                     <span class="material-symbols-outlined">
                         auto_stories
                     </span>
                     <h3>Books</h3>
                 </a>
-                <a href="../clients/clients.php" class="active">
+                <a href="../clients/clients.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
@@ -69,28 +69,36 @@
 
 
         <main>
-            <h1>Users</h1>
-            <button class="add-btn">Add user</button>
-            <div class="input-group">
-                <input type="search" placeholder="Search a user...">
-                <span class="material-symbols-outlined">
-                    search
-                </span>
-            </div>
-            <div class="users-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role </th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>      
+        
+
+        <a href="books.php" class="go-back">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+            <h3>Go back</h3>
+        </a>
+
+
+
+        <form class="edit-book">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" placeholder="ID" readonly>
+
+            <label for="bookName">Book Name:</label>
+            <input type="text" id="bookName" name="bookName" placeholder="Book name">
+
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" placeholder="Author name">
+
+            <label for="quantity">Quantity:</label>
+            <input type="text" id="quantity" name="quantity" placeholder="Quantity">
+
+            <button type="submit">Submit changes</button>
+        </form>
+
+
+        
+
         </main>
         
 
@@ -123,7 +131,7 @@
         </div>
     </div>
     
-    <script src="Clients.js"></script>
+    <script src='Books.js' ></script>
     <script src="../index.js"></script>
     <script src="../search.js"></script>
 </body>

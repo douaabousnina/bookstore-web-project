@@ -1,3 +1,6 @@
+<?php
+    include("../../connect.php")
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,19 +42,19 @@
                     </span>
                     <h3>Home</h3>
                 </a>
-                <a href="../orders/orders.php" >
+                <a href="../orders/orders.php" class="active">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
                     <h3>Orders</h3>
                 </a>
-                <a href="../books/books.php" >
+                <a href="../books/books.php">
                     <span class="material-symbols-outlined">
                         auto_stories
                     </span>
                     <h3>Books</h3>
                 </a>
-                <a href="../clients/clients.php" class="active">
+                <a href="../clients/clients.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
@@ -65,35 +68,70 @@
                 </a>
             </div>
         </aside>
-        
-
 
         <main>
-            <h1>Users</h1>
-            <button class="add-btn">Add user</button>
+            <h1>Orders</h1>
             <div class="input-group">
-                <input type="search" placeholder="Search a user...">
+                <input type="search" placeholder="Search an order...">
                 <span class="material-symbols-outlined">
                     search
                 </span>
             </div>
-            <div class="users-table">
+            <div class="recent-orders">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role </th>
+                            <th>User ID</th>
+                            <th>User</th>
+                            <th>Book Name</th>
+                            <th>Book ID</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <?php
+                            $stmt = $pdo->prepare("SELECT c.* , b.*,u.* FROM command c,book b,client u WHERE c.bid = b.bid AND c.cid = u.cid");
+                            $stmt->execute();
+                            $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            if(!$arr) exit('No Orders Yet');
+                            else{
+                                foreach($arr as $row){
+                                    ?>
+                                    <tr>
+                                        <td><?= $row['cid'] ?></td>
+                                        <td><?= $row['firstname'] ?></td>
+                                        <td><?= $row['btitle'] ?></td>
+                                        <td><?= $row['bid'] ?></td>
+                                        <td><?= $row['cdate'] ?></td>
+                                        <td><?= $row['state'] ?></td>
+                                        <td class="action-btns">
+                                        <div style="display: inline-flex;">
+                                        <button class="edit-btn" onClick="location.href='editOrder.php?cid=<?= $row["cid"] ?>&bid=<?= $row["bid"] ?>'">
+                                            <span class="material-symbols-outlined">
+                                                edit
+                                            </span>
+                                        </button>
+                                        <form method="POST" action="delete.php">
+                                            <input type="hidden" name="cid" value="<?= $row["cid"] ?>">
+                                            <input type="hidden" name="bid" value="<?= $row["bid"] ?>">
+                                            <button onClick="return confirm('Are you sure you want to delete this order')" type="submit" class="delete-btn" name="delete-order" >
+                                                <span class="material-symbols-outlined">
+                                                    delete
+                                                </span>
+                                            </button>
+                                        </form>
+                                        </div>
+                                        </td>
+                                    <?php
+                                }
+                            }
+                        ?>
+                    </tbody>
                 </table>
-            </div>      
+            </div>       
         </main>
-        
-
 
         <div class="right-section">
             <div class="nav">
@@ -110,20 +148,16 @@
                         dark_mode
                     </span>
                 </div>
-
                 <div class="profile">
                     <div class="info">
                         <p><b>Admin</b></p>
                     </div>
                     <div class="profile-photo">
-                    <img src="../photos/profile-1.jpg">
+                        <img src="../photos/profile-1.jpg">
                     </div>
-
+                </div>
             </div>
         </div>
-    </div>
-    
-    <script src="Clients.js"></script>
     <script src="../index.js"></script>
     <script src="../search.js"></script>
 </body>

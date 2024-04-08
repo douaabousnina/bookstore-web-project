@@ -69,28 +69,38 @@
 
 
         <main>
-            <h1>Users</h1>
-            <button class="add-btn">Add user</button>
-            <div class="input-group">
-                <input type="search" placeholder="Search a user...">
-                <span class="material-symbols-outlined">
-                    search
-                </span>
-            </div>
-            <div class="users-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role </th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>      
+        
+        <a href="clients.php" class="go-back">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+            <h3>Go back</h3>
+        </a>
+
+
+
+        <form class="edit-book">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" placeholder="ID" readonly>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Username">
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" placeholder="Email">
+
+            <label for="role">Role:</label>
+            <select id="role" name="role">
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
+
+            <button type="submit">Submit changes</button>
+        </form>
+
+    
+
+
         </main>
         
 
