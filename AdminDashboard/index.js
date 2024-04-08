@@ -52,34 +52,6 @@ if (typeof Orders !== 'undefined' && Orders.length > 0) {
 
 
 
-if (typeof Books !== 'undefined' && Books.length > 0) {
-    Books.forEach(book => {
-        const tr = document.createElement('tr');
-        const trContent = `
-            <td>${book.isbn}</td>
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-            <td>${book.quantity}</td>
-            <td class="action-btns">
-                <button class="edit-btn" onClick="location.href='editBook.php'">
-                    <span class="material-symbols-outlined">
-                        edit
-                    </span>
-                </button>
-
-                <button class="delete-btn" onClick='deleteButtonHandler(this)' > 
-                    <span class="material-symbols-outlined">
-                        delete
-                    </span>
-                </button>
-            </td>
-        `;
-        tr.innerHTML = trContent;
-        document.querySelector('.books-table table tbody').appendChild(tr);
-    });
-    
-}
-
 if (typeof Clients !== 'undefined' && Clients.length > 0) {
     Clients.forEach(user => {
         const tr = document.createElement('tr');
