@@ -54,7 +54,7 @@
 
       <?php
         
-        session_start();
+        /*session_start();
         include('connexion.php');
         use PHPMailer\PHPMailer\PHPMailer;
         use PHPMailer\PHPMailer\SMTP;
@@ -135,7 +135,74 @@
         header("Location: register.php");
         }
         
-        }}
+        }}*/
+        
+  $firstName = $_SESSION["userFirstName"] ?? '';
+  $lastName = $_SESSION["userLastName"] ?? '';
+  $email = $_SESSION["email"] ?? '';
+  $password = $_SESSION["pass"] ?? '';
+  $rePassword = $_POST["repass"] ?? '';
+  $message = "";
+  if(isset($_POST["submit"])){
+    if(empty($message)) 
+       {
+        $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
+        $req=$pdo->prepare("SELECT cid FROM client WHERE email=? LIMIT 1");
+        $req->setFetchMode(PDO::FETCH_ASSOC);
+        $req->execute(array($email));
+        $tab=$req->fetchAll();
+        if(count($tab)>0)
+           $message="<li> the Email has been used!</li>";
+        else{
+          if ($password !== $rePassword) {
+            $message = "<li>The passwords do not match.</li>";
+          } else {
+            $ins=$pdo->prepare("INSERT INTO client(firstname,lastname,email,cpassword) VALUES (?,?,?,?)");
+            $ins->execute(array($firstName,$lastName,$email,md5($password)));
+            header("location:login.php");
+          }
+        }
+               }
+  }
+
+?>
+
+<main>
+  <div>
+    <section >
+      <div class="signin">
+        <div class="content">
+          <h2>Sign In</h2>
+          <form class="form" method="post" action="register.php" enctype="multipart/form-data">
+            <div class="inputBox">
+              <input type="text" name="userFirstName" required><i>first Name</i>
+            </div>
+            <div class="inputBox">
+              <input type="text" name="userLastName" required><i>last Name</i>
+            </div>
+            <div class="inputBox">
+              <input type="email" name="email" required><i>Email</i>
+            </div>
+            <div class="inputBox">
+              <input type="password" name="pass" required><i>Password</i>
+            </div>
+            <div class="inputBox">
+              <input type="password" name="repass" required><i>Confirm password</i>
+            </div>
+
+            <div class="links">
+              <a>Already have an account?</a>
+              <a href="../Login/login.php">Log in</a>
+            </div>
+            <div class="inputBox">
+              <input type="submit"  name="submit" value="Sign in!">
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
      
                                                                                                                                                                                                                                                                                                                           
 

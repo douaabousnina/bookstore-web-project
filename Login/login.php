@@ -54,7 +54,7 @@
 
  <?php
      
-          session_start();
+         /* session_start();
           include('connexion.php');
           if(isset($_SESSION["permission"]))
             { $_SESSION["status"]="you are aleardy logged in";
@@ -99,44 +99,56 @@
                $_SESSION['status']="Fill the form to register.";
                header("Location: register.php");
               exit(0);
+            }}*/
+      session_start();
+      $email = $_SESSION["email"] ?? '';
+      $password = $_SESSION["pass"] ?? ''; 
+      $message = "";
+      if(isset($_POST["submit"])){
+            $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
+            $res=$pdo->prepare("SELECT * FROM client WHERE email=? LIMIT 1");
+            $res->setFetchMode(PDO::FETCH_ASSOC);
+            $res->execute(array($email,md5($password)));
+            $tab=$res->fetchAll();
+            if(count($tab)>0)
+                    $message="<li>Wrong email or password</li>";
+            else{
+              $_SESSION["permission"]="yes";
+              $_SESSION["username"]=strtoupper($tab[0]["lastname"]." ".$tab[0]["firstname"]);
+              header("location:session.php");
             }}
-
-
-
-
-
-
-
- ?>
+            ?>
 
 
  
-<main>
-    <div>
-      <section>
-        <div class="signin">
-          <div class="content">
-            <h2>Sign Up</h2>
-            <form class="form" method="post" action="" enctype="multipart/form-data">
-              <div class="inputBox">
-                <input type="email" name="email" required><i>Email</i>
-              </div>
-              <div class="inputBox">
-                <input type="password" name="passowrd" required><i>Password</i>
-              </div>
-              <div class="links">
-                <a href="#">Forgot password?</a>
-                <a href="register.php">Sign in</a>
-              </div>
-              <div class="inputBox">
-                <input type="submit" name="submitButton"  value="Login">
-              </div>
-           </form>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
+ 
+            <main>
+            <div>
+              <section>
+                <div class="signin">
+                  <div class="content">
+                    <h2>Sign Up</h2>
+                    <form class="form" method="post" action="register.php" enctype="multipart/form-data">
+                      <div class="inputBox">
+                        <input type="email" name="email" required><i>Email</i>
+                      </div>
+                      <div class="inputBox">
+                        <input type="password" name="pass" required><i>Password</i>
+                      </div>
+                      <div class="links">
+                        <a href="#">Forgot password?</a>
+                        <a href="../Register/register.php">Sign in</a>
+                      </div>
+                      <div class="inputBox">
+                        <input type="submit" name="submit"  value="Login">
+                      </div>
+                   </form>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </main>
+        
 
 
 
