@@ -100,24 +100,40 @@
                header("Location: register.php");
               exit(0);
             }}*/
-      session_start();
-      $email = $_SESSION["email"] ?? '';
-      $password = $_SESSION["pass"] ?? ''; 
-      $message = "";
-      if(isset($_POST["submit"])){
-            $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
-            $res=$pdo->prepare("SELECT * FROM client WHERE email=? LIMIT 1");
-            $res->setFetchMode(PDO::FETCH_ASSOC);
-            $res->execute(array($email,md5($password)));
-            $tab=$res->fetchAll();
-            if(count($tab)>0)
-                    $message="<li>Wrong email or password</li>";
-            else{
-              $_SESSION["permission"]="yes";
-              $_SESSION["username"]=strtoupper($tab[0]["lastname"]." ".$tab[0]["firstname"]);
-              header("location:session.php");
-            }}
+            session_start();
+            
+            $email = $_POST["email"] ?? '';
+            $password = $_POST["pass"] ?? ''; 
+            
+            if (isset($_POST["submit"])) {
+                try {
+                    $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+                    $stmt = $pdo->prepare("SELECT * FROM client WHERE email = ?");
+                    $stmt->execute([$email]);
+                    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+                    if ($user) {
+                        // Verify the password
+                        if (($password==$user['cpassword'])) {
+                            $_SESSION["permission"] = "yes";
+                            $_SESSION["username"] = strtoupper($user["lastname"] . " " . $user["firstname"]);
+                            header("Location: session.php");
+                            exit(); // Always exit after a header redirect
+                        } else {
+                            $message = "<li>Wrong email or password</li>";
+                        }
+                    } else {
+                        $message = "<li>Wrong email or password</li>";
+                    }
+                } catch (PDOException $e) {
+                    // Handle database connection errors
+                    echo "Error: " . $e->getMessage();
+                }
+            }
             ?>
+            
 
 
  
@@ -128,7 +144,7 @@
                 <div class="signin">
                   <div class="content">
                     <h2>Sign Up</h2>
-                    <form class="form" method="post" action="register.php" enctype="multipart/form-data">
+                    <form class="form" method="post" action="login.php" enctype="multipart/form-data">
                       <div class="inputBox">
                         <input type="email" name="email" required><i>Email</i>
                       </div>

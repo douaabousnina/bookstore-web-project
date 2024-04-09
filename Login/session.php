@@ -48,20 +48,6 @@
       </header>
 
 
-<?php
-      session_start();
-      include('connexion.php');
-      if(!isset($_SESSION["permission"]))
-      { $_SESSION["status"]="Please login to access user dashboard";
-        
-        header("location:login.php");
-          exit(0);
-
-
-      }
-
-?>
-
 
 <h1>hello <?=$_SESSION['auth_user']['username']; ?></h1>
 
