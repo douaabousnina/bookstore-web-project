@@ -17,7 +17,7 @@
             <div class="toggle">
                 <div class="logo">
                     <img src="../photos/logo.png">
-                    <h2 id="f1">Book<span id="f2">ini</span></h2>
+                    <h2 id="f1">Clients<span id="f2">ini</span></h2>
                 </div>
                 <div class="close" id="close-btn">
                     <span class="material-icons-sharp">
@@ -39,7 +39,7 @@
                     </span>
                     <h3>Home</h3>
                 </a>
-                <a href="../orders/orders.php" >
+                <a href="http://localhost/bookstore-web-project/bookstore-web-project/AdminDashboard/clients/editClient1.php">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
@@ -51,6 +51,7 @@
                     </span>
                     <h3>Books</h3>
                 </a>
+
                 <a href="../clients/clients.php" class="active">
                     <span class="material-icons-sharp">
                         person_outline
@@ -65,35 +66,82 @@
                 </a>
             </div>
         </aside>
-        
-
 
         <main>
             <h1>Users</h1>
-            <button class="add-btn">Add user</button>
             <div class="input-group">
                 <input type="search" placeholder="Search a user...">
                 <span class="material-symbols-outlined">
                     search
                 </span>
             </div>
+
             <div class="users-table">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Username</th>
+                            <th>Client ID</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
                             <th>Email</th>
-                            <th>Role </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
-                </table>
-            </div>      
-        </main>
-        
+                    <tbody>
+                        <?php
+                        $host = 'localhost';
+                        $dbname = 'bookini';
+                        $user = 'root';
+                        $pass = '';
+                        $port = '3306';
 
+                        try {
+                            $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $pass);
+                            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                            $stmt = $pdo->prepare('SELECT cid, firstname, lastname, email FROM client');
+                            $stmt->execute();
+                            $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            if (!$clients) {
+                                echo '<tr><td colspan="5">No clients found</td></tr>';
+                            } else {
+                                foreach ($clients as $client) {
+                                    ?>
+                                    <tr>
+                                        <td><?= $client['cid'] ?></td>
+                                        <td><?= $client['firstname'] ?></td>
+                                        <td><?= $client['lastname'] ?></td>
+                                        <td><?= $client['email'] ?></td>
+                                        <td class="action-btns">
+                                            <div style="display: inline-flex;">
+                                                <button class="edit-btn" onclick="location.href='editClient1.php?cid=<?= $client['cid'] ?>'">
+                                                    <span class="material-symbols-outlined">
+                                                        edit
+                                                    </span>
+                                                </button>
+                                                <form method="POST" action="deleteclient.php">
+                                                    <input type="hidden" name="cid" value="<?= $client['cid'] ?>">
+                                                    <button onclick="return confirm('Are you sure you want to delete this client?')" type="submit" class="delete-btn" name="delete">
+                                                        <span class="material-symbols-outlined">
+                                                            delete
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                            }
+                        } catch (PDOException $e) {
+                            die("Error: Could not connect to the database. " . $e->getMessage());
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </main>
 
         <div class="right-section">
             <div class="nav">
@@ -110,20 +158,20 @@
                         dark_mode
                     </span>
                 </div>
-
                 <div class="profile">
                     <div class="info">
                         <p><b>Admin</b></p>
                     </div>
                     <div class="profile-photo">
-                    <img src="../photos/profile-1.jpg">
+                        <img src="../photos/profile-1.jpg">
                     </div>
-
+                </div>
             </div>
         </div>
     </div>
-    
-    <script src="Clients.js"></script>
+
+    <script src="../clients.js"></script>
+
     <script src="../index.js"></script>
     <script src="../search.js"></script>
 </body>
