@@ -42,7 +42,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="../Register/register.php">SIGN IN</a>
+              <a class="nav-link" href="register.php">SIGN IN</a>
             </li>
 
           </ul>
@@ -52,27 +52,86 @@
   </header>
 
 
-  <main>
+ <?php
+     
+          session_start();
+          include('connexion.php');
+          if(isset($_SESSION["permission"]))
+            { $_SESSION["status"]="you are aleardy logged in";
+              
+              header("location:index.php");
+                exit(0);
+
+
+            }
+
+          if(isset($_POST["submitButton"]))
+          {  if(!empty(trim($_SESSION["email"])) && !empty(trim($_SESSION["password"])))
+             {   $email = mysqli_real_escape_string($connexion, $_SESSION["email"]);
+                $password =  mysqli_real_escape_string($connexion, $_SESSION["password"]); 
+                $login_query="SELECT * FROM client WHERE email='$email' AND cpassword='$password' LIMIT 1" ;
+                $login_query_run = mysqli_query($connexion, $login_query);
+                
+                if(mysqli_num_rows($login_query_run) == 1)
+                {   
+                    $row = mysqli_fetch_array($login_query_run);
+                    $_SESSION["permission"]=TRUE;
+                    $_SESSION["auth_user"]=[
+                      'username'=> $row['firstname'] + $row['lastname'],
+                      'email'=> $row['email'],
+                    ];
+                    $_SESSION['status']="you're logged in successfully.";
+                    header("Location: AdminDashboard/acceuiladmin.php");
+                    exit(0);
+
+                }
+                else 
+                {        
+                  $_SESSION['status']="Invalid Email or Password.";
+                  header("Location: login.php");
+                  exit(0); 
+                 
+
+                 }}
+                
+            else{
+
+               $_SESSION['status']="Fill the form to register.";
+               header("Location: register.php");
+              exit(0);
+            }}
+
+
+
+
+
+
+
+ ?>
+
+
+ 
+<main>
     <div>
       <section>
         <div class="signin">
           <div class="content">
             <h2>Sign Up</h2>
-            <div class="form">
+            <form class="form" method="post" action="" enctype="multipart/form-data">
               <div class="inputBox">
-                <input type="text" required><i>Username</i>
+                <input type="email" name="email" required><i>Email</i>
               </div>
               <div class="inputBox">
-                <input type="password" required><i>Password</i>
+                <input type="password" name="passowrd" required><i>Password</i>
               </div>
               <div class="links">
                 <a href="#">Forgot password?</a>
-                <a href="../Register/register.php">Sign in</a>
+                <a href="register.php">Sign in</a>
               </div>
               <div class="inputBox">
-                <input type="submit" value="Login">
+                <input type="submit" name="submitButton"  value="Login">
               </div>
-            </div>
+           </form>
           </div>
         </div>
       </section>
@@ -82,15 +141,14 @@
 
 
 
-
   <footer>
     <div class="container-fluid p-0">
       <div class="row text-left">
         <div class="col-md-5 col-sm-5">
           <h4 class="text-light">About us</h4>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum maxime ea similique illum corrupti</p>
-          <p class="pt-4 text-muted">Copyright ©2019 All rights reserved | This template is made with by
-            <span> Daily Tuition</span>
+          <p class="text-muted">We are 5 enthusiastic students who would like to revolutionize the defintion of technology</p>
+          <p class="pt-4 text-muted">Copyright ©2024 All rights reserved | This website is made by 
+            <span> Iheb Gafsi Douaa Bousnina Rayene Knani Farah Ayeb Omar Sagga</span>
           </p>
         </div>
         <div class="col-md-5 col-sm-12">
