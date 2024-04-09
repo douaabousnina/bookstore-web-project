@@ -137,10 +137,10 @@
         
         }}*/
         
-  $firstName = $_SESSION["userFirstName"] ?? '';
-  $lastName = $_SESSION["userLastName"] ?? '';
-  $email = $_SESSION["email"] ?? '';
-  $password = $_SESSION["pass"] ?? '';
+  $firstName = $_POST["userFirstName"] ?? '';
+  $lastName = $_POST["userLastName"] ?? '';
+  $email = $_POST["email"] ?? '';
+  $password = $_POST["pass"] ?? '';
   $rePassword = $_POST["repass"] ?? '';
   $message = "";
   if(isset($_POST["submit"])){
