@@ -45,7 +45,7 @@
                     </span>
                     <h3>Orders</h3>
                 </a>
-                <a href="../AdminDashboard/books/index.php?action=index">
+                <a href="../AdminDashboard/books/books.php">
                     <span class="material-symbols-outlined">
                         auto_stories
                     </span>
