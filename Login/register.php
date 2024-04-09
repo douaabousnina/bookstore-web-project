@@ -68,7 +68,7 @@
         $mail->SMTPAuth   = true;
         $mail->Host       = 'bookini.gmail.com';
         $mail->Username   = 'insatBookini@gmail.com';
-        $mail->Password   = 'secret';
+        $mail->Password   = 'secret123.';
         
         $mail->SMTPSecure = "tls";
         $mail->Port       = 587;
