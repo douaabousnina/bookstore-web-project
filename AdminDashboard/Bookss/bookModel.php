@@ -121,15 +121,16 @@ class BookModel
      */
     public static function listBooks($page, $perPage)
     {
-        $offset=($page-1) * $perPage;
+        $offset = ($page - 1) * $perPage;
         $sqlState = self::databaseConnection()->prepare("SELECT * FROM book LIMIT $offset, $perPage");
         $sqlState->setFetchMode(PDO::FETCH_ASSOC);
         $sqlState->execute();
         return $sqlState->fetchAll();
     }
 
-    public static function getTotalBooks() {
-        $sqlState=self::databaseConnection()->prepare("SELECT * FROM book");
+    public static function getTotalBooks()
+    {
+        $sqlState = self::databaseConnection()->prepare("SELECT * FROM book");
         $sqlState->execute();
         return count($sqlState->fetchAll(PDO::FETCH_ASSOC));
     }
@@ -138,11 +139,39 @@ class BookModel
      * @param string $bid
      * @return array
      */
-    public function viewBook($bid)
+    public static function viewBook($bid)
     {
         return self::where('bid', $bid)[0];
     }
 
+
+
+    public static function validateBook($data)
+    {
+        $errors = '';
+
+        // Controle de saisie
+        if (!preg_match("/^\/works\/OL\d{7}W$/", $data['bid'])) {
+            $errors .= '<li>Invalid book id format!</li>';
+        }
+        if (!(preg_match('/[A-Za-z0-9]/', $data['btitle']) && strlen($data['btitle']) < 30 && $data['btitle'] != "")) {
+            $errors .= '<li>Invalid book title format!</li>';
+        }
+        if (!(strlen($data['bdescription']) < 200 && $data['bdescription'] != '')) {
+            $errors .= '<li>Invalid description format!</li>';
+        }
+        if (!(strlen($data['bauthor']) < 30 && $data['bauthor'] != "")) {
+            $errors .= '<li>Invalid author name!</li>';
+        }
+        if (!preg_match("/^OL\d{7}M$/", $data['bcoverid'])) {
+            $errors .= '<li>Invalid cover id format!</li>';
+        }
+        if (!preg_match('/^\d+(\.\d{1,3})?$/', $data['bprice'])) {
+            $errors .= '<li>Invalid price format!</li>';
+        }
+
+        return $errors;
+    }
 
     /**
      * @return bool
@@ -158,7 +187,7 @@ class BookModel
      * @param string $bid
      * @return bool
      */
-    public function deleteBook($bid)
+    public static function deleteBook($bid)
     {
         $sqlState = self::databaseConnection()->prepare("DELETE FROM book WHERE bid=?");
         return $sqlState->execute(array($bid));
@@ -195,8 +224,6 @@ class BookModel
         $sqlState = self::databaseConnection()->prepare("SELECT * FROM book WHERE $column $operator ?");
         $sqlState->execute(array($value));
         $data = $sqlState->fetchAll(PDO::FETCH_ASSOC);
-        if (empty($data))
-            throw new Exception("No books found.");
         return $data;
     }
 }

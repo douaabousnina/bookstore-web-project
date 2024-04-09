@@ -2,7 +2,7 @@
 $title = "";
 
 ob_start(); ?>
-<a href="index.php?action=index" class="go-back">
+<a href="books.php" class="go-back">
     <span class="material-symbols-outlined">
         arrow_back
     </span>
@@ -10,7 +10,7 @@ ob_start(); ?>
 </a>
 
 
-<form class="edit-book" method="post" action="index.php?action=storeBook">
+<form class="edit-book" method="post">
     <ul style="position:absolute; margin-top: 100px; left: 80%;">
         <?= $errors ?>
     </ul>

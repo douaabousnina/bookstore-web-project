@@ -1,10 +1,11 @@
 <?php
 $title = "Books";
+require_once 'bookModel.php';
 ob_start();
 ?>
 
 <div class="container" style="display: flex; justify-content: center;">
-    <a class="add-btn" href="index.php?action=addBook">Add book</a>
+    <a class="add-btn" href="storeBook.php">Add book</a>
 </div>
 
 <div class="input-group">
@@ -30,7 +31,15 @@ ob_start();
         </thead>
 
         <tbody>
-            <?php foreach ($books as $book) : ?>
+
+            <?php
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $perPage = 50;
+            $totalBooks = BookModel::getTotalBooks();
+            $numberOfPages = ceil($totalBooks / $perPage);
+            $books = BookModel::listBooks($page, $perPage);
+            if (count($books) == 0) header('location: index.php?action=index'); //cas ou l utilisateur met une valeur de page invalide manuellement
+            foreach ($books as $book) : ?>
                 <tr>
                     <td> <img class="book-cover" src=<?php echo '"https://covers.openlibrary.org/b/olid/' . $book['bcoverid'] . '-L.jpg"'; ?> alt="book" /> </td>
                     <td> <?= $book['bcoverid'] ?> </td>
@@ -40,13 +49,13 @@ ob_start();
                     <td> <?= $book['bauthor'] ?> </td>
                     <td> <?= $book['bprice'] ?> </td>
                     <td class="action-btns" style=" border:none;margin-left:10px; width:50px ; display: flex;">
-                        <a class="edit-btn" href='index.php?action=editBook&bid=<?= $book['bid'] ?>'>
+                        <a class="edit-btn" href='updateBook.php?bid=<?= $book['bid'] ?>'>
                             <span class="material-symbols-outlined">
                                 edit
                             </span>
                         </a>
 
-                        <a class="delete-btn" href="index.php?action=deleteBook&bid=<?= $book['bid'] ?>">
+                        <a class="delete-btn" href="deleteBook.php?bid=<?= $book['bid'] ?>">
                             <span class="material-symbols-outlined">
                                 delete
                             </span>
@@ -62,17 +71,19 @@ ob_start();
                             justify-content: center; 
                             align-items: center;">
     <div style="display: flex;">
+
         <?php
-        $numberOfPages = ceil($totalBooks / $perPage);
+
         for ($i = 1; $i <= $numberOfPages; $i++) {
-            if ($currentPage != $i) echo "<a href='?page=$i&action=index' style='margin:10px;'> $i </a>&nbsp;";
-            
+            if ($page != $i) echo "<a href='?page=$i' style='margin:10px;'> $i </a>&nbsp;";
+
             else echo "<a class='active' style='background-color: var(--color-primary);
                                             color: var(--color-white);
                                             font-weight: bold;
                                             padding: 0px 5px;
                                             border-radius: var(--border-radius-1);'> $i</a>";
         }
+
         ?>
     </div>
 </div>

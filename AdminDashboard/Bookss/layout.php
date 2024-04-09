@@ -1,3 +1,5 @@
+<?php include 'include/config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,11 +23,11 @@
             <?= $content ?>
         </main>
 
-        <?php include_once 'include/rightsection.php'; ?>
-
     </div>
 
-    <script src=".././index.js" ></script>
+    <?php include_once 'include/rightsection.php'; ?>
+
+    <script src="../index.js"></script>
 
 </body>
 

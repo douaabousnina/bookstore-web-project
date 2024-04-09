@@ -3,7 +3,7 @@ $title="";
 ob_start();
 ?>
 
-<a href="index.php?action=index" class="go-back">
+<a href="books.php" class="go-back">
     <span class="material-symbols-outlined">
         arrow_back
     </span>
@@ -17,7 +17,9 @@ ob_start();
     <?= $errors ?>
 </ul>
 
-<form class="edit-book" method="post" action="index.php?action=updateBook&bid=<?= $book['bid'] ?>">
+<?php $book=BookModel::viewBook($_GET['bid']); ?>
+
+<form class="edit-book" method="post" action="updateBook.php?bid=<?= $book['bid'] ?>">
 
     <label for="bid">ID:</label>
     <input type="text" name="bid" value="<?= $book['bid'] ?>">
