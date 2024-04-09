@@ -23,9 +23,11 @@
             <?= $content ?>
         </main>
 
+        <?php include_once 'include/rightsection.php'; ?>
+        
     </div>
 
-    <?php include_once 'include/rightsection.php'; ?>
+    
 
     <script src="../index.js"></script>
 
