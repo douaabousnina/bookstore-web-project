@@ -52,73 +52,73 @@
   </header>
 
 
- <?php
-     
-     session_start();
-     $email = $_POST["email"] ?? '';
-     $password = $_POST["pass"] ?? '';
-     $message = "";
-     
-     if (isset($_POST["submit"])) {
-       try {
-         $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
-     
-         $sql = "SELECT * FROM client WHERE email=? LIMIT 1";
-         $stmt = $pdo->prepare($sql);
-         $stmt->bindParam(1, $email, PDO::PARAM_STR);
-         $stmt->execute();
-         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-     
-         if (!$user) {
-           $message = "<li>Wrong email or password</li>";
-         } else {
-           if ($password == $user['cpassword']) {
-             $_SESSION["permission"] = "yes";
-             $_SESSION["username"] = ucfirst($user["lastname"]) . " " . ucfirst($user["firstname"]);
-             header("location:session.php");
-           } else {
-             $message = "<li>Wrong email or password</li>";
-           }
-         }
-       } catch (PDOException $e) {
-         $message = "Error: " . $e->getMessage();
-       }
-     }
- ?>
+  <?php
+
+  session_start();
+  $email = $_POST["email"] ?? '';
+  $password = $_POST["pass"] ?? '';
+  $message = "";
+
+  if (isset($_POST["submit"])) {
+    try {
+      $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
+
+      $sql = "SELECT * FROM client WHERE email=? LIMIT 1";
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindParam(1, $email, PDO::PARAM_STR);
+      $stmt->execute();
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      if (!$user) {
+        $message = "<li>Wrong email or password</li>";
+      } else {
+        if ($password == $user['cpassword']) {
+          $_SESSION["permission"] = "yes";
+          $_SESSION["username"] = ucfirst($user["lastname"]) . " " . ucfirst($user["firstname"]);
+          header("location:session.php");
+        } else {
+          $message = "<li>Wrong email or password</li>";
+        }
+      }
+    } catch (PDOException $e) {
+      $message = "Error: " . $e->getMessage();
+    }
+  }
+  ?>
 
 
- 
- 
-            <main>
-            <div>
-              <section>
-                <div class="signin">
-                  <div class="content">
-                    <h2>Sign Up</h2>
-                    <form class="form" method="post" action="" enctype="multipart/form-data">
-                      <div class="inputBox">
-                        <input type="email" name="email" required><i>Email</i>
-                      </div>
-                      <div class="inputBox">
-                        <input type="password" name="pass" required><i>Password</i>
-                      </div>
-                      <div class="links">
-                        <a href="#">Forgot password?</a>
-                        <a href="register.php">Sign in</a>
-                      </div>
-                      <div style=" padding: 2px; margin: 2px; border: 1px font-family: Arial, sans-serif; font-size: 15px; color: red; text-align: center;">
-                        <?php echo $message; ?>
-                      </div>
-                      <div class="inputBox">
-                        <input type="submit" name="submit"  value="Login">
-                      </div>
-                   </form>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </main>
-        
+
+
+  <main>
+    <div>
+      <section>
+        <div class="signin">
+          <div class="content">
+            <h2>Sign Up</h2>
+            <form class="form" method="post" action="" enctype="multipart/form-data">
+              <div class="inputBox">
+                <input type="email" name="email" required><i>Email</i>
+              </div>
+              <div class="inputBox">
+                <input type="password" name="pass" required><i>Password</i>
+              </div>
+              <div class="links">
+                <a href="#">Forgot password?</a>
+                <a href="register.php">Sign in</a>
+              </div>
+              <div style=" padding: 2px; margin: 2px; border: 1px; font-family: Arial, sans-serif; font-size: 15px; color: red; text-align: center;">
+                <?php echo $message; ?>
+              </div>
+              <div class="inputBox">
+                <input type="submit" name="submit" value="Login">
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
 
 
 
@@ -129,7 +129,7 @@
         <div class="col-md-5 col-sm-5">
           <h4 class="text-light">About us</h4>
           <p class="text-muted">We are 5 enthusiastic students who would like to revolutionize the defintion of technology</p>
-          <p class="pt-4 text-muted">Copyright ©2024 All rights reserved | This website is made by 
+          <p class="pt-4 text-muted">Copyright ©2024 All rights reserved | This website is made by
             <span> Iheb Gafsi Douaa Bousnina Rayene Knani Farah Ayeb Omar Sagga</span>
           </p>
         </div>
