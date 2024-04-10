@@ -31,28 +31,26 @@
           <ul class="navbar-nav">
             <li class="nav-item active">
               <a class="nav-link" href="../">HOME
+                <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Books/">BOOKS</a>
+              <a class="nav-link" href="../Books">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Cart/">CART <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-              <div class="dropdown">
-                <a href="#" class="nav-link">PAGES</a>
-                <div class="dropdown-content">
-                  <a href="#">Generic</a>
-                  <a href="#">Element</a>
-                </div>
-              </div>
+              <a class="nav-link" href="">CART</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">FACT</a>
+              <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">ABOUT</a>
+              <?php
+                if(isset($_SESSION['id'])){
+                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
+                }else{
+                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
+                }
+              ?>
             </li>
           </ul>
         </div>

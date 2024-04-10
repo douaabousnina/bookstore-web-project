@@ -28,28 +28,27 @@
           <div class="mr-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="../">HOME</a>
+              <a class="nav-link" href="../">HOME
+                <span class="sr-only">(current)</span>
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Books">BOOKS<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Cart">CART</a>
-            </li>
-            <li class="nav-item dropdown">
-              <div class="dropdown">
-                <a href="#" class="nav-link">PAGES</a>
-                <div class="dropdown-content">
-                  <a href="#">Generic</a>
-                  <a href="#">Element</a>
-                </div>
-              </div>
+              <a class="nav-link" href="../Cart/">CART</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">FACT</a>
+              <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">ABOUT</a>
+              <?php
+                if(isset($_SESSION['id'])){
+                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
+                }else{
+                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
+                }
+              ?>
             </li>
           </ul>
         </div>
@@ -79,6 +78,7 @@
         </div>
         <div class="book-list" id="first-list">
           <?php
+          //$_SESSION['id'] = 1;
           if (isset($_GET['limit'])) {
             $limit = $_GET['limit'];
           }
