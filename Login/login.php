@@ -54,86 +54,37 @@
 
  <?php
      
-         /* session_start();
-          include('connexion.php');
-          if(isset($_SESSION["permission"]))
-            { $_SESSION["status"]="you are aleardy logged in";
-              
-              header("location:index.php");
-                exit(0);
-
-
-            }
-
-          if(isset($_POST["submitButton"]))
-          {  if(!empty(trim($_SESSION["email"])) && !empty(trim($_SESSION["password"])))
-             {   $email = mysqli_real_escape_string($connexion, $_SESSION["email"]);
-                $password =  mysqli_real_escape_string($connexion, $_SESSION["password"]); 
-                $login_query="SELECT * FROM client WHERE email='$email' AND cpassword='$password' LIMIT 1" ;
-                $login_query_run = mysqli_query($connexion, $login_query);
-                
-                if(mysqli_num_rows($login_query_run) == 1)
-                {   
-                    $row = mysqli_fetch_array($login_query_run);
-                    $_SESSION["permission"]=TRUE;
-                    $_SESSION["auth_user"]=[
-                      'username'=> $row['firstname'] + $row['lastname'],
-                      'email'=> $row['email'],
-                    ];
-                    $_SESSION['status']="you're logged in successfully.";
-                    header("Location: AdminDashboard/acceuiladmin.php");
-                    exit(0);
-
-                }
-                else 
-                {        
-                  $_SESSION['status']="Invalid Email or Password.";
-                  header("Location: login.php");
-                  exit(0); 
-                 
-
-                 }}
-                
-            else{
-
-               $_SESSION['status']="Fill the form to register.";
-               header("Location: register.php");
-              exit(0);
-            }}*/
-            session_start();
-            
-            $email = $_POST["email"] ?? '';
-            $password = $_POST["pass"] ?? ''; 
-            
-            if (isset($_POST["submit"])) {
-                try {
-                    $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
-                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-                    $stmt = $pdo->prepare("SELECT * FROM client WHERE email = ?");
-                    $stmt->execute([$email]);
-                    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-                    if ($user) {
-                        // Verify the password
-                        if (($password==$user['cpassword'])) {
-                            $_SESSION["permission"] = "yes";
-                            $_SESSION["username"] = strtoupper($user["lastname"] . " " . $user["firstname"]);
-                            header("Location: session.php");
-                            exit(); // Always exit after a header redirect
-                        } else {
-                            $message = "<li>Wrong email or password</li>";
-                        }
-                    } else {
-                        $message = "<li>Wrong email or password</li>";
-                    }
-                } catch (PDOException $e) {
-                    // Handle database connection errors
-                    echo "Error: " . $e->getMessage();
-                }
-            }
-            ?>
-            
+     session_start();
+     $email = $_POST["email"] ?? '';
+     $password = $_POST["pass"] ?? '';
+     $message = "";
+     
+     if (isset($_POST["submit"])) {
+       try {
+         $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
+     
+         $sql = "SELECT * FROM client WHERE email=? LIMIT 1";
+         $stmt = $pdo->prepare($sql);
+         $stmt->bindParam(1, $email, PDO::PARAM_STR);
+         $stmt->execute();
+         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+     
+         if (!$user) {
+           $message = "<li>Wrong email or password</li>";
+         } else {
+           if ($password == $user['cpassword']) {
+             $_SESSION["permission"] = "yes";
+             $_SESSION["username"] = ucfirst($user["lastname"]) . " " . ucfirst($user["firstname"]);
+             header("location:session.php");
+           } else {
+             $message = "<li>Wrong email or password</li>";
+           }
+         }
+       } catch (PDOException $e) {
+         $message = "Error: " . $e->getMessage();
+       }
+     }
+ ?>
 
 
  
@@ -144,7 +95,7 @@
                 <div class="signin">
                   <div class="content">
                     <h2>Sign Up</h2>
-                    <form class="form" method="post" action="login.php" enctype="multipart/form-data">
+                    <form class="form" method="post" action="" enctype="multipart/form-data">
                       <div class="inputBox">
                         <input type="email" name="email" required><i>Email</i>
                       </div>
@@ -153,7 +104,10 @@
                       </div>
                       <div class="links">
                         <a href="#">Forgot password?</a>
-                        <a href="../Register/register.php">Sign in</a>
+                        <a href="register.php">Sign in</a>
+                      </div>
+                      <div style=" padding: 2px; margin: 2px; border: 1px font-family: Arial, sans-serif; font-size: 15px; color: red; text-align: center;">
+                        <?php echo $message; ?>
                       </div>
                       <div class="inputBox">
                         <input type="submit" name="submit"  value="Login">

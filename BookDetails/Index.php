@@ -61,7 +61,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="../Register/register.php">SIGN IN</a>
+              <a class="nav-link" href="../register.php">SIGN IN</a>
             </li>
 
           </ul>
