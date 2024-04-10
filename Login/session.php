@@ -15,7 +15,7 @@
         <div class="container-fluid p-0">
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="../Index.php">
-              <i class="fas fa-book-reader fa-2x mx-3"></i>Books</a>
+              <i class="fas fa-book-reader fa-2x mx-3"></i>Bookini</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <i class="fas fa-align-right text-light"></i>
             </button>
@@ -47,14 +47,32 @@
         </div>
       </header>
 
+      <?php
+    session_start();
+    if($_SESSION["permission"]!="yes")
+    {
+      header("location:login.php");
+       exit();
+  }
+  ?>
+
+      <header>
+        User interface
+      <a href="logout.php">Log out</a>
+      </header>
+
+      <h1 style="font-family: Arial, sans-serif; font-size: 3em; color: #b62fff; text-align: left;">
+      <?php
+      echo "Welcome to Bookini <br> Hello".$_SESSION["username"].",<br>Dive into our world,bookworm !";
+      ?>
+      
+      </h1>
 
 
-<h1>hello <?=$_SESSION['auth_user']['username']; ?></h1>
 
 
 
-
-footer>
+<footer>
         <div class="container-fluid p-0">
           <div class="row text-left">
             <div class="col-md-5 col-sm-5">
