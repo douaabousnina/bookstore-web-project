@@ -28,22 +28,28 @@
           <div class="mr-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="../Index.php">HOME
+              <a class="nav-link" href="../">HOME
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Books/Index.php">BOOKS</a>
+              <a class="nav-link" href="">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Cart/index.php">CART</a>
+              <a class="nav-link" href="../Cart/">CART</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="../Register/register.php">SIGN IN</a>
+              <?php
+                if(isset($_SESSION['id'])){
+                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
+                }else{
+                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
+                }
+              ?>
             </li>
 
           </ul>
@@ -76,6 +82,7 @@
         </div>
         <div class="book-list" id="first-list">
           <?php
+          //$_SESSION['id'] = 1;
           if (isset($_GET['limit'])) {
             $limit = $_GET['limit'];
           }

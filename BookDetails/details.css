@@ -14,7 +14,7 @@ section {
   --Patua: "Patua One", cursive;
   --Lobster: "lobster", cursive;
   --light-black: #2e2c2caf;
-  --bggradient: linear-gradient(45deg, #00f7ff, #008d78);
+  --bggradient: linear-gradient(to bottom, #4924dd, #b62fff);
   --light-gray: rgba(255, 255, 255, 0.877);
 }
 
@@ -596,4 +596,19 @@ td {
 
 .returns-payment {
   color: #008d78;
+}
+
+.already-in-cart {
+  display: flex;
+  background-color: #bafff5;
+  color: rgb(255, 0, 0);
+  border: rgb(67, 0, 0) 1px solid;
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  font-size: 1em;
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.353);
+  margin: auto;
+  transition: all 200ms ease;
+  text-align: center;
+  z-index: 1000;
 }
