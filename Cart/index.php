@@ -1,3 +1,4 @@
+<?php include '../connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,13 +47,13 @@
             if (@$_SESSION["logged_in"] === 'yes') {
               echo '
                       <li class="nav-item">
-                        <a class="nav-link" href="Login/logout.php">LOG OUT</a>
+                        <a class="nav-link" href="../Login/logout.php">LOG OUT</a>
                       </li>
                       ';
             } else {
               echo '
                       <li class="nav-item">
-                        <a class="nav-link" href="Login/register.php">SIGN IN</a>
+                        <a class="nav-link" href="../Login/register.php">SIGN IN</a>
                       </li>
                       ';
             }
@@ -82,7 +83,6 @@
         <div class="col-md-5 col-sm-12  h-25">
           <ul class="books-in-cart">
             <?php
-            include '../connect.php';
             $host = 'localhost';
             $dbname = 'bookini';
             $user = 'root';
