@@ -1,12 +1,3 @@
-<?php
-include("../../connect.php");
-
-if ($_SESSION['adminAuth'] !== 'yes') {
-    header('location: ../Index.php');
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +39,7 @@ if ($_SESSION['adminAuth'] !== 'yes') {
                     </span>
                     <h3>Home</h3>
                 </a>
-                <a href="../orders/orders.php">
+                <a href="http://localhost/bookstore-web-project/bookstore-web-project/AdminDashboard/clients/editClients.php">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
@@ -67,7 +58,7 @@ if ($_SESSION['adminAuth'] !== 'yes') {
                     </span>
                     <h3>Users</h3>
                 </a>
-                <a href="../../Login/logout.php">
+                <a href="#">
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -93,6 +84,7 @@ if ($_SESSION['adminAuth'] !== 'yes') {
                             <th>Firstname</th>
                             <th>Lastname</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -108,7 +100,7 @@ if ($_SESSION['adminAuth'] !== 'yes') {
                             $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $pass);
                             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                            $stmt = $pdo->prepare('SELECT cid, firstname, lastname, email FROM client');
+                            $stmt = $pdo->prepare('SELECT * FROM client');
                             $stmt->execute();
                             $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -116,15 +108,16 @@ if ($_SESSION['adminAuth'] !== 'yes') {
                                 echo '<tr><td colspan="5">No clients found</td></tr>';
                             } else {
                                 foreach ($clients as $client) {
-                        ?>
+                                    ?>
                                     <tr>
                                         <td><?= $client['cid'] ?></td>
                                         <td><?= $client['firstname'] ?></td>
                                         <td><?= $client['lastname'] ?></td>
                                         <td><?= $client['email'] ?></td>
+                                        <td><?php echo $client['isAdmin']===0 ? "User" : "Admin" ; ?></td>
                                         <td class="action-btns">
                                             <div style="display: inline-flex;">
-                                                <button class="edit-btn" onclick="location.href='editClient1.php?cid=<?= $client['cid'] ?>'">
+                                                <button class="edit-btn" onclick="location.href='editClients.php?cid=<?= $client['cid'] ?>'">
                                                     <span class="material-symbols-outlined">
                                                         edit
                                                     </span>
@@ -140,7 +133,7 @@ if ($_SESSION['adminAuth'] !== 'yes') {
                                             </div>
                                         </td>
                                     </tr>
-                        <?php
+                                <?php
                                 }
                             }
                         } catch (PDOException $e) {

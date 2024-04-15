@@ -84,7 +84,6 @@ if ($_SESSION['adminAuth'] !== 'yes') {
             <h3>Go back</h3>
         </a>
         <?php 
-            include("../../connect.php");
             $cid = $_GET['cid'];
             $bid = $_GET['bid'];
             $query = "SELECT * FROM command WHERE cid=:cid AND bid=:bid";
@@ -102,7 +101,7 @@ if ($_SESSION['adminAuth'] !== 'yes') {
             <input type="text" id="bid" name="bid" value="<?=$arr['bid']?>" readonly><br />
 
             <label for="cdate">Order Date:</label>
-            <input type="date" id="cdate" name="cdate" placeholder="New Order Date"><br />
+            <input type="date" id="cdate" name="cdate" value="<?= $arr['cdate'] ?>"><br />
             
             <label for="state">Status:</label>
             <select id="state" name="state" placeholder="Update Status"><br />
