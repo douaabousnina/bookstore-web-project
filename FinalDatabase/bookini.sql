@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 05, 2024 at 09:36 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Hôte : 127.0.0.1
+-- Généré le : lun. 15 avr. 2024 à 16:21
+-- Version du serveur : 10.4.32-MariaDB
+-- Version de PHP : 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bookini`
+-- Base de données : `bookini`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `book`
+-- Structure de la table `book`
 --
 
 CREATE TABLE `book` (
@@ -37,7 +37,7 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `book`
+-- Déchargement des données de la table `book`
 --
 
 INSERT INTO `book` (`bid`, `btitle`, `bdescription`, `bauthor`, `bcoverid`, `bprice`) VALUES
@@ -1052,7 +1052,7 @@ INSERT INTO `book` (`bid`, `btitle`, `bdescription`, `bauthor`, `bcoverid`, `bpr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `client`
+-- Structure de la table `client`
 --
 
 CREATE TABLE `client` (
@@ -1060,20 +1060,22 @@ CREATE TABLE `client` (
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `cpassword` varchar(50) NOT NULL
+  `cpassword` varchar(255) NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `client`
+-- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`cid`, `firstname`, `lastname`, `email`, `cpassword`) VALUES
-(1, 'Iheb', 'Gafsi', 'iheb404notfound@gmail.com', 'MyPass');
+INSERT INTO `client` (`cid`, `firstname`, `lastname`, `email`, `cpassword`, `isAdmin`) VALUES
+(1, 'Iheb', 'Gafsi', 'iheb404notfound@gmail.com', 'MyPass', 0),
+(4, 'admin', 'admin', 'admin@gmail.com', '$2y$10$VO4X.Fn08Rx3MOPOg73HWOIH7nDXC4caYlxTnrsWiqsXSsEExiEzS', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `command`
+-- Structure de la table `command`
 --
 
 CREATE TABLE `command` (
@@ -1084,59 +1086,67 @@ CREATE TABLE `command` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `command`
+-- Déchargement des données de la table `command`
 --
 
 INSERT INTO `command` (`bid`, `cid`, `cdate`, `state`) VALUES
 ('/works/OL102610W', 1, '2024-04-05', 'pending'),
+('/works/OL10833891W', 1, '2024-04-09', 'pending'),
+('/works/OL1144827W', 1, '2024-04-09', 'pending'),
 ('/works/OL16114329W', 1, '2024-04-05', 'pending'),
+('/works/OL20743382W', 1, '2024-04-09', 'pending'),
 ('/works/OL262421W', 1, '2024-04-05', 'pending'),
+('/works/OL26492W', 1, '2024-04-09', 'pending'),
 ('/works/OL45503W', 1, '2024-04-05', 'pending'),
 ('/works/OL471943W', 1, '2024-04-05', 'pending'),
+('/works/OL472049W', 1, '2024-04-09', 'pending'),
+('/works/OL51948W', 1, '2024-04-09', 'pending'),
 ('/works/OL56768W', 1, '2024-04-05', 'pending'),
+('/works/OL675834W', 1, '2024-04-15', 'pending'),
+('/works/OL99535W', 1, '2024-04-15', 'pending'),
 ('/works/OL9973101W', 1, '2024-04-05', 'pending'),
 ('OL49215435M', 1, '0000-00-00', 'pending'),
 ('OL50530382M', 1, '0000-00-00', 'pending');
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `book`
+-- Index pour la table `book`
 --
 ALTER TABLE `book`
   ADD PRIMARY KEY (`bid`);
 
 --
--- Indexes for table `client`
+-- Index pour la table `client`
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`cid`);
 
 --
--- Indexes for table `command`
+-- Index pour la table `command`
 --
 ALTER TABLE `command`
   ADD PRIMARY KEY (`bid`,`cid`),
   ADD KEY `cid` (`cid`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `client`
+-- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `command`
+-- Contraintes pour la table `command`
 --
 ALTER TABLE `command`
   ADD CONSTRAINT `command_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `book` (`bid`),
