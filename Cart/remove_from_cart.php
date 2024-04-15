@@ -1,7 +1,6 @@
 <?php
 include '../connect.php';
 $id = '';
-session_start();
 if(isset($_GET['id'])){
     $id = $_GET['id'];
 }

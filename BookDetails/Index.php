@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="details.css" />
   <link rel="stylesheet" href="mobile-style.css">
+  <script src="details.js"></script>
 </head>
 
 <body>
@@ -46,22 +47,28 @@
           <div class="mr-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="../Index.php">HOME
+              <a class="nav-link" href="../">HOME
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Books/Index.php">BOOKS</a>
+              <a class="nav-link" href="../Books">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Cart/index.php">CART</a>
+              <a class="nav-link" href="../Cart/">CART</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="../Register/register.php">SIGN IN</a>
+              <?php
+                if(isset($_SESSION['id'])){
+                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
+                }else{
+                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
+                }
+              ?>
             </li>
 
           </ul>
@@ -174,7 +181,19 @@
         <div class="big-title">
           This title will be released on January 21, 2025.
         </div>
-        <button class="btn-add-to-cart">Add to Cart &nbsp;<span class="cart-tag"></span></button>
+        <?php
+          // check if the book is already in cart, if so we write a text else we write a btn-add-to-cart button
+          $query = "SELECT bid FROM command WHERE cid='".$_SESSION['id']."' AND bid='$id'";
+          $stmt = $pdo->prepare($query);
+          $stmt->execute();
+          $val = $stmt->fetchAll();
+          if($val){
+            echo '<p class="already-in-cart">This book is already in your cart</p>';
+          }else{
+            echo '<button id="btn-add-to-cart" class="btn-add-to-cart" onclick="add_to_cart(\''.$id.'\')">Add to Cart &nbsp;<span class="cart-tag"></span></button>';
+          }
+        ?>
+        <!--button class="btn-add-to-cart">Add to Cart &nbsp;<span class="cart-tag"></span></button-->
         <table class="buy-info">
           <tr>
             <td>Ships from</td>

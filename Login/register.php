@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +42,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Books/Index.php">BOOKS</a>
+              <a class="nav-link" href="../Books/Index.php">Bookini</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../Cart/index.php">CART</a>
@@ -54,85 +64,79 @@
 
   <?php
 
-  session_start();
-  include('connexion.php');
-
-  use PHPMailer\PHPMailer\PHPMailer;
-  use PHPMailer\PHPMailer\SMTP;
-  use PHPMailer\PHPMailer\Exception;
-
-  require 'vendor/autoload.php';
-  function sendemail_verify( $firstName, $lastName, $email)
+  function sendemail_verify($firstName, $lastName, $email)
   {
-  $mail = new PHPMailer(true);
-  $mail->isSMTP();
-  $mail->SMTPAuth   = true;
-  $mail->Host       = 'bookini.gmail.com';
-  $mail->Username   = 'insatBookini@gmail.com';
-  $mail->Password   = 'secret123.';
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->SMTPAuth   = true;
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->Username   = 'insatbookini@gmail.com';
+    $mail->Password   = 'secret123.';
 
-  $mail->SMTPSecure = "tls";
-  $mail->Port       = 587;
-
-
-  $mail->setFrom('insatBookini@gmail.com', $firstName+$lastName);
-  $mail->addAddress($email);
-  $email_template=' <table style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 10px;">
-  <tr>
-  <td>
-  <h2 style="text-align: center; color: #333;">Welcome to Bookini!</h2>
-  </td>
-  </tr>
-  <tr>
-  <td>
-  <p style="color: #333;">Hello .$firstName. ,</p>
-  <p style="color: #333;">Thank you for registering with us. </p>
-  <div style="text-align: center; margin-top: 20px;">
-  <a href="" style="display: inline-block; background-color: #007bff; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px;">Click here</a>
-  </div>
-  <p style="color: #333;">Thanks<br> The Bookini Team</p>
-  </td>
-  </tr>
-  </table>
-  ';
+    $mail->SMTPSecure = "tls";
+    $mail->Port       = 587;
 
 
-  $mail->isHTML(true);
-  $mail->Subject = 'Email verification from Bookini';
-  $mail->Body    = $email_template;
-  $mail->send();
-  echo 'Message has been sent to your Email.';}
+    $mail->setFrom('insatBookini@gmail.com', $firstName + $lastName);
+    $mail->addAddress($email);
+    $email_template = ' <table style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 10px;">
+        <tr>
+        <td>
+        <h2 style="text-align: center; color: #333;">Welcome to Bookini!</h2>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <p style="color: #333;">Hello .$firstName. ,</p>
+        <p style="color: #333;">Thank you for registering with us. </p>
+        <div style="text-align: center; margin-top: 20px;">
+        <a href="" style="display: inline-block; background-color: #007bff; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px;">Click here</a>
+        </div>
+        <p style="color: #333;">Thanks<br> The Bookini Team</p>
+        </td>
+        </tr>
+        </table>
+        ';
 
 
-  if (isset($_POST["submit_btn"])) {
-    $firstName = $_SESSION["firstname"] ?? '';
-    $lastName = $_SESSION["lastname"] ?? '';
-    $email = $_SESSION["email"] ?? '';
-    $password = $_SESSION["password"] ?? '';
-    $rePassword = $_POST["repass"] ?? '';
+    $mail->isHTML(true);
+    $mail->Subject = 'Email verification from Bookini';
+    $mail->Body    = $email_template;
+    $mail->send();
+    echo 'Message has been sent to your Email.';
+  }
 
-    $check_email_query = "SELECT cid FROM client WHERE email='$email' LIMIT 1";
-    $check_email_query_run = mysqli_query($connexion, $check_email_query);
+  $firstName = $_POST["userFirstName"] ?? '';
+  $lastName = $_POST["userLastName"] ?? '';
+  $email = $_POST["email"] ?? '';
+  $password = $_POST["pass"] ?? '';
+  $rePassword = $_POST["repass"] ?? '';
+  $message = "";
+  if (isset($_POST["submit"])) {
+    if (empty($password)) $message = "Invalid password.";
+    if (empty($rePassword)) $message = "Invalid password.";
+    if ($password != $rePassword) $message = "Passwords must be identical.";
 
-    if (mysqli_num_rows($check_email_query_run) > 0) {
-      $_SESSION['status'] = "the Email has been used!";
-      header("Location: register.php");
-    } else {
-      $query = "INSERT INTO client(firstname,lastname,email,cpassword) VALUES ('$firstName','$lastName ','$email','$password')";
-
-      if ($query_run) {
-        sendemail_verify("$firstName", "$lastName ", "$email");
-        $_SESSION['status'] = "Registration succeeded.Please verify you Email.";
-        header("Location: register.php");
-      } else {
-
-        $_SESSION['status'] = "Registration failed.Try again.";
-        header("Location: register.php");
+    if (empty($message)) {
+      $pdo = new PDO("mysql:host=localhost;dbname=bookini", 'root', '');
+      $req = $pdo->prepare("SELECT cid FROM client WHERE email=? LIMIT 1");
+      $req->setFetchMode(PDO::FETCH_ASSOC);
+      $req->execute(array($email));
+      $tab = $req->fetchAll();
+      if (count($tab) > 0)
+        $message = "<li> the Email has been used!</li>";
+      else {
+        if ($password !== $rePassword) {
+          $message = "<li>The passwords do not match.</li>";
+        } else {
+          $ins = $pdo->prepare("INSERT INTO client(firstname,lastname,email,cpassword) VALUES (?,?,?,?)");
+          $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+          $ins->execute(array($firstName, $lastName, $email, $hashedPassword));
+          header("location:login.php");
+        }
       }
     }
   }
-
-
 
   ?>
 
@@ -142,31 +146,25 @@
         <div class="signin">
           <div class="content">
             <h2>Sign In</h2>
-            <form class="form" method="post" action="" enctype="multipart/form-data">
+            <form class="form" method="post" action="register.php" enctype="multipart/form-data">
               <div class="inputBox">
-                <input type="text" name="firstname" required><i>first Name</i>
+                <input type="text" name="userFirstName" required><i>first Name</i>
               </div>
               <div class="inputBox">
-                <input type="text" name="lastname" required><i>last Name</i>
+                <input type="text" name="userLastName" required><i>last Name</i>
               </div>
               <div class="inputBox">
                 <input type="email" name="email" required><i>Email</i>
               </div>
               <div class="inputBox">
-                <input type="password" name="passowrd" required><i>Password</i>
+                <input type="password" name="pass" required><i>Password</i>
               </div>
               <div class="inputBox">
                 <input type="password" name="repass" required><i>Confirm password</i>
               </div>
-              <div class="alert">
-                <?php
-                if (isset($_SESSION['status'])) {
-                  echo $_SESSION['status'];
-                  unset($_SESSION['status']);
-                }
 
-
-                ?>
+              <div style=" padding: 2px; margin: 2px; border: 1px; font-family: Arial, sans-serif; font-size: 15px; color: red; text-align: center;">
+                <?php echo $message; ?>
               </div>
 
               <div class="links">
@@ -174,7 +172,7 @@
                 <a href="login.php">Log in</a>
               </div>
               <div class="inputBox">
-                <input type="submit" name="submit_btn" value="Sign in!">
+                <input type="submit" name="submit" value="Sign in!">
               </div>
             </form>
           </div>
@@ -183,6 +181,10 @@
     </div>
 
   </main>
+
+
+
+
 
   <footer>
     <div class="container-fluid p-0">

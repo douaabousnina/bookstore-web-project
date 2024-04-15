@@ -1,3 +1,11 @@
+<?php
+    include("../connect.php");
+    if ($_SESSION['adminAuth'] !== 'yes') {
+        header('location: ../Index.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

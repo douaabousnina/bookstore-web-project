@@ -328,7 +328,8 @@ header .container .col-md-7 p {
 footer {
   background: rgba(0, 0, 0, 0.815);
   overflow-x: hidden;
-  padding: 14vmin 18vmin;
+  padding: 10vmin 14vmin;
+  margin: 0;
 }
 
 footer p > span {

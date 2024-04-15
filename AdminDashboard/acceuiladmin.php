@@ -1,3 +1,10 @@
+<?php
+    include("../connect.php");
+    if ($_SESSION['adminAuth'] !== 'yes') {
+        header('location: ../Index.php');
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -141,6 +148,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>User ID</th>
                             <th>User</th>
                             <th>Book Name</th>
                             <th>Book  ID</th>
@@ -148,7 +156,27 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                    <?php
+                        $stmt = $pdo->prepare("SELECT c.* , b.*,u.* FROM command c,book b,client u  WHERE c.bid = b.bid AND c.cid = u.cid LIMIT 3");
+                        $stmt->execute();
+                        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        if(!$arr) exit('No Orders Yet');
+                        else{
+                            foreach($arr as $row){
+                                ?>
+                                <tr>
+                                    <td><?= $row['cid'] ?></td>
+                                    <td><?= $row['firstname'] ?></td>
+                                    <td><?= $row['btitle'] ?></td>
+                                    <td><?= $row['bid'] ?></td>
+                                    <td><?= $row['cdate'] ?></td>
+                                    <td><?= $row['state'] ?></td>
+                                <?php
+                            }
+                        }
+                    ?>
+                    </tbody>
                 </table>
                 <a href="../AdminDashboard/orders/orders.php">Show All</a>
             </div>     
@@ -227,7 +255,7 @@
             </div>
         </div>
     </div>
-    <script src="RecOrders.js"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>

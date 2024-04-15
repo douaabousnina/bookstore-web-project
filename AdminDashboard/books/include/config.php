@@ -2,7 +2,8 @@
 
 session_start();
 
-/* verification elli l chakhs is actually admin
-if ($_SESSION['role']!='admin') {
-    
-} */
+
+if ($_SESSION['adminAuth'] !== 'yes') {
+    header('location: ../Index.php');
+    exit();
+}
