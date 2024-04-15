@@ -66,7 +66,7 @@ if ($_SESSION['adminAuth'] !== 'yes') {
                     </span>
                     <h3>Users</h3>
                 </a>
-                <a href="#">
+                <a href="../../Login/logout.php">
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -77,13 +77,13 @@ if ($_SESSION['adminAuth'] !== 'yes') {
 
         <main>
 
-        <a href="orders.php" class="go-back">
-            <span class="material-symbols-outlined">
-                arrow_back
-            </span>
-            <h3>Go back</h3>
-        </a>
-        <?php 
+            <a href="orders.php" class="go-back">
+                <span class="material-symbols-outlined">
+                    arrow_back
+                </span>
+                <h3>Go back</h3>
+            </a>
+            <?php
             $cid = $_GET['cid'];
             $bid = $_GET['bid'];
             $query = "SELECT * FROM command WHERE cid=:cid AND bid=:bid";
@@ -92,27 +92,27 @@ if ($_SESSION['adminAuth'] !== 'yes') {
             $stmt->bindParam(':bid', $bid);
             $stmt->execute();
             $arr = $stmt->fetch(PDO::FETCH_ASSOC);
-        ?>
-        <form class="edit-book" action="update.php" method="POST">
-            <label for="cid">Client ID:</label>
-            <input type="text" id="cid" name="cid" value="<?=$arr['cid']?>" readonly/><br />
+            ?>
+            <form class="edit-book" action="update.php" method="POST">
+                <label for="cid">Client ID:</label>
+                <input type="text" id="cid" name="cid" value="<?= $arr['cid'] ?>" readonly /><br />
 
-            <label for="bid">Book ID:</label>
-            <input type="text" id="bid" name="bid" value="<?=$arr['bid']?>" readonly><br />
+                <label for="bid">Book ID:</label>
+                <input type="text" id="bid" name="bid" value="<?= $arr['bid'] ?>" readonly><br />
 
-            <label for="cdate">Order Date:</label>
-            <input type="date" id="cdate" name="cdate" value="<?= $arr['cdate'] ?>"><br />
-            
-            <label for="state">Status:</label>
-            <select id="state" name="state" placeholder="Update Status"><br />
-            <option value="Pending">Pending</option>
-            <option value="Processing">Processing</option>
-            <option value="Delivered">Delivered</option>
-            </select>
-            
-            <button type="submit">Submit changes</button>
-        
-        </form>
+                <label for="cdate">Order Date:</label>
+                <input type="date" id="cdate" name="cdate" value="<?= $arr['cdate'] ?>"><br />
+
+                <label for="state">Status:</label>
+                <select id="state" name="state" placeholder="Update Status"><br />
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+
+                <button type="submit">Submit changes</button>
+
+            </form>
 
         </main>
 
@@ -137,16 +137,16 @@ if ($_SESSION['adminAuth'] !== 'yes') {
                         <p><b>Admin</b></p>
                     </div>
                     <div class="profile-photo">
-                    <img src="../photos/profile-1.jpg">
+                        <img src="../photos/profile-1.jpg">
                     </div>
 
+                </div>
             </div>
         </div>
-    </div>
-    
-    <script src='Books.js' ></script>
-    <script src="../index.js"></script>
-    <script src="../search.js"></script>
+
+        <script src='Books.js'></script>
+        <script src="../index.js"></script>
+        <script src="../search.js"></script>
 </body>
 
 </html>

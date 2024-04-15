@@ -39,7 +39,7 @@
                     </span>
                     <h3>Home</h3>
                 </a>
-                <a href="http://localhost/bookstore-web-project/bookstore-web-project/AdminDashboard/clients/editClients.php">
+                <a href="../orders/orders.php">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
