@@ -42,7 +42,7 @@
             </span>
             <h3>Users</h3>
         </a>
-        <a href="#">
+        <a href="../../Login/logout.php">
             <span class="material-icons-sharp">
                 logout
             </span>

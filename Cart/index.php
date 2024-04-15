@@ -7,17 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Cart</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-    crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="./Style.css" />
   <link rel="stylesheet" href="./cart.css" />
   <link rel="stylesheet" href="./mobile-style.css">
 </head>
 
 <body>
-<header>
+  <header>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="../Index.php">
@@ -43,15 +41,23 @@
               <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
 
-            <li class="nav-item">
-              <?php
-                if(isset($_SESSION['id'])){
-                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
-                }else{
-                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
-                }
-              ?>
-            </li>
+            <?php
+
+            if (@$_SESSION["logged_in"] === 'yes') {
+              echo '
+                      <li class="nav-item">
+                        <a class="nav-link" href="Login/logout.php">LOG OUT</a>
+                      </li>
+                      ';
+            } else {
+              echo '
+                      <li class="nav-item">
+                        <a class="nav-link" href="Login/register.php">SIGN IN</a>
+                      </li>
+                      ';
+            }
+
+            ?>
 
           </ul>
         </div>
@@ -76,46 +82,46 @@
         <div class="col-md-5 col-sm-12  h-25">
           <ul class="books-in-cart">
             <?php
-              include '../connect.php';
-              $host = 'localhost';
-              $dbname = 'bookini';
-              $user = 'root';
-              $pass = '';
-              $port = '3306';
-              // establish a connection
-              $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $pass);
-              // prepare a statement to be executed
-              $stmt = $pdo->prepare('SELECT book.bid AS bid, book.btitle AS title, book.bdescription AS description, book.bauthor AS author, book.bprice AS price, book.bcoverid AS cover
+            include '../connect.php';
+            $host = 'localhost';
+            $dbname = 'bookini';
+            $user = 'root';
+            $pass = '';
+            $port = '3306';
+            // establish a connection
+            $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $pass);
+            // prepare a statement to be executed
+            $stmt = $pdo->prepare('SELECT book.bid AS bid, book.btitle AS title, book.bdescription AS description, book.bauthor AS author, book.bprice AS price, book.bcoverid AS cover
               FROM book, command
               WHERE book.bid = command.bid AND command.cid = 1 AND command.state = "pending";');
-              // execute the statement
-              $stmt->execute();
-              // fetch the results from database which will be in a dictionary format
-              $books = array();
-              while ($row = $stmt->fetch()) {
-                $book = new Book($row['title'], $row['bid'], $row['price'], $row['author'], $row['description'], $row['cover']);
-                array_push($books, $book);
-              }
-              // close the connection
-              $pdo = null;
+            // execute the statement
+            $stmt->execute();
+            // fetch the results from database which will be in a dictionary format
+            $books = array();
+            while ($row = $stmt->fetch()) {
+              $book = new Book($row['title'], $row['bid'], $row['price'], $row['author'], $row['description'], $row['cover']);
+              array_push($books, $book);
+            }
+            // close the connection
+            $pdo = null;
             ?>
             <?php
             // for every element of books array
-            foreach ($books as $book) {?>
-            <li class="cart-item">
-              <div class="book-img">
-                <img src=<?php echo '"https://covers.openlibrary.org/b/olid/'.$book->getCover().'-L.jpg"'; ?> alt="Book"/>
-              </div>
-              <div class="book-description">
-                <div class="book-title"><?php echo $book->getTitle();?></div>
-                <div class="book-author"><?php echo $book->getAuthor(); ?></div>
-                <div class="book-description"><?php echo substr($book->getDescription(), 0, min(40, strlen($book->getDescription()))) . "..."; ?></div>
-                <div class="book-price"><span class="price-tag"></span><span class="price-text"><span class="price"><?php echo $book->getPrice();?></span> DT</span></div>
-              </div>
-              <div class="remove-icon">
-                <input type="button" class="remove-btn" onclick=<?php echo '"' . "remove_from_cart('".$book->getIsbn()."')". '"' ?>>
-              </div>
-            </li>
+            foreach ($books as $book) { ?>
+              <li class="cart-item">
+                <div class="book-img">
+                  <img src=<?php echo '"https://covers.openlibrary.org/b/olid/' . $book->getCover() . '-L.jpg"'; ?> alt="Book" />
+                </div>
+                <div class="book-description">
+                  <div class="book-title"><?php echo $book->getTitle(); ?></div>
+                  <div class="book-author"><?php echo $book->getAuthor(); ?></div>
+                  <div class="book-description"><?php echo substr($book->getDescription(), 0, min(40, strlen($book->getDescription()))) . "..."; ?></div>
+                  <div class="book-price"><span class="price-tag"></span><span class="price-text"><span class="price"><?php echo $book->getPrice(); ?></span> DT</span></div>
+                </div>
+                <div class="remove-icon">
+                  <input type="button" class="remove-btn" onclick=<?php echo '"' . "remove_from_cart('" . $book->getIsbn() . "')" . '"' ?>>
+                </div>
+              </li>
             <?php } ?>
           </ul>
         </div>
@@ -163,12 +169,12 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="cart.js"></script>
-  <script>$(document).ready(load);</script>
+  <script>
+    $(document).ready(load);
+  </script>
 </body>
 
 </html>

@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php';
+require 'phpmailer/vendor/autoload.php';
 ?>
 
 <!DOCTYPE html>
@@ -51,9 +51,23 @@ require 'vendor/autoload.php';
               <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="#">SIGN IN</a>
-            </li>
+            <?php
+
+            if (@$_SESSION["logged_in"] === 'yes') {
+              echo '
+                  <li class="nav-item">
+                    <a class="nav-link" href="Login/logout.php">LOG OUT</a>
+                  </li>
+                  ';
+            } else {
+              echo '
+                  <li class="nav-item">
+                    <a class="nav-link" href="Login/register.php">SIGN IN</a>
+                  </li>
+                  ';
+            }
+
+            ?>
 
           </ul>
         </div>

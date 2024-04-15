@@ -61,15 +61,23 @@
               <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
 
-            <li class="nav-item">
-              <?php
-                if(isset($_SESSION['id'])){
-                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
-                }else{
-                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
-                }
-              ?>
-            </li>
+            <?php
+
+              if (@$_SESSION["logged_in"] === 'yes') {
+                echo '
+                <li class="nav-item">
+                  <a class="nav-link" href="Login/logout.php">LOG OUT</a>
+                </li>
+                ';
+              } else {
+                echo '
+                <li class="nav-item">
+                  <a class="nav-link" href="Login/register.php">SIGN IN</a>
+                </li>
+                ';
+              }
+            
+            ?>
 
           </ul>
         </div>

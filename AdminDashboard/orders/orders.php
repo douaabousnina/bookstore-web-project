@@ -1,9 +1,11 @@
 <?php
-    include("../connect.php");
-    if ($_SESSION['adminAuth'] !== 'yes') {
-        header('location: ../Index.php');
-        exit();
-    }
+
+include("../../connect.php");
+
+if ($_SESSION['adminAuth'] !== 'yes') {
+    header('location: ../../Index.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +67,7 @@
                     </span>
                     <h3>Users</h3>
                 </a>
-                <a href="#">
+                <a href="../../Login/logout.php">
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -97,45 +99,45 @@
                     </thead>
                     <tbody>
                         <?php
-                            $stmt = $pdo->prepare("SELECT c.* , b.*,u.* FROM command c,book b,client u WHERE c.bid = b.bid AND c.cid = u.cid");
-                            $stmt->execute();
-                            $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            if(!$arr) exit('No Orders Yet');
-                            else{
-                                foreach($arr as $row){
-                                    ?>
-                                    <tr>
-                                        <td><?= $row['cid'] ?></td>
-                                        <td><?= $row['firstname'] ?></td>
-                                        <td><?= $row['btitle'] ?></td>
-                                        <td><?= $row['bid'] ?></td>
-                                        <td><?= $row['cdate'] ?></td>
-                                        <td><?= $row['state'] ?></td>
-                                        <td class="action-btns">
+                        $stmt = $pdo->prepare("SELECT c.* , b.*,u.* FROM command c,book b,client u WHERE c.bid = b.bid AND c.cid = u.cid");
+                        $stmt->execute();
+                        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        if (!$arr) exit('No Orders Yet');
+                        else {
+                            foreach ($arr as $row) {
+                        ?>
+                                <tr>
+                                    <td><?= $row['cid'] ?></td>
+                                    <td><?= $row['firstname'] ?></td>
+                                    <td><?= $row['btitle'] ?></td>
+                                    <td><?= $row['bid'] ?></td>
+                                    <td><?= $row['cdate'] ?></td>
+                                    <td><?= $row['state'] ?></td>
+                                    <td class="action-btns">
                                         <div style="display: inline-flex;">
-                                        <button class="edit-btn" onClick="location.href='editOrder.php?cid=<?= $row["cid"] ?>&bid=<?= $row["bid"] ?>'">
-                                            <span class="material-symbols-outlined">
-                                                edit
-                                            </span>
-                                        </button>
-                                        <form method="POST" action="delete.php">
-                                            <input type="hidden" name="cid" value="<?= $row["cid"] ?>">
-                                            <input type="hidden" name="bid" value="<?= $row["bid"] ?>">
-                                            <button onClick="return confirm('Are you sure you want to delete this order')" type="submit" class="delete-btn" name="delete-order" >
+                                            <button class="edit-btn" onClick="location.href='editOrder.php?cid=<?= $row["cid"] ?>&bid=<?= $row["bid"] ?>'">
                                                 <span class="material-symbols-outlined">
-                                                    delete
+                                                    edit
                                                 </span>
                                             </button>
-                                        </form>
+                                            <form method="POST" action="delete.php">
+                                                <input type="hidden" name="cid" value="<?= $row["cid"] ?>">
+                                                <input type="hidden" name="bid" value="<?= $row["bid"] ?>">
+                                                <button onClick="return confirm('Are you sure you want to delete this order')" type="submit" class="delete-btn" name="delete-order">
+                                                    <span class="material-symbols-outlined">
+                                                        delete
+                                                    </span>
+                                                </button>
+                                            </form>
                                         </div>
-                                        </td>
-                                    <?php
-                                }
+                                    </td>
+                            <?php
                             }
-                        ?>
+                        }
+                            ?>
                     </tbody>
                 </table>
-            </div>       
+            </div>
         </main>
 
         <div class="right-section">
@@ -163,8 +165,8 @@
                 </div>
             </div>
         </div>
-    <script src="../index.js"></script>
-    <script src="../search.js"></script>
+        <script src="../index.js"></script>
+        <script src="../search.js"></script>
 </body>
 
 </html>

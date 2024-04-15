@@ -1,9 +1,10 @@
 <?php
-    include("../connect.php");
-    if ($_SESSION['adminAuth'] !== 'yes') {
-        header('location: ../Index.php');
-        exit();
-    }
+include("../connect.php");
+
+if ($_SESSION['adminAuth'] !== 'yes') {
+    header('location: ../Index.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +47,7 @@
                     </span>
                     <h3>Home</h3>
                 </a>
-                <a href="../AdminDashboard/orders/orders.php" >
+                <a href="../AdminDashboard/orders/orders.php">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
@@ -64,7 +65,7 @@
                     </span>
                     <h3>Users</h3>
                 </a>
-                <a href="#">
+                <a href="../Login/logout.php">
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -151,20 +152,20 @@
                             <th>User ID</th>
                             <th>User</th>
                             <th>Book Name</th>
-                            <th>Book  ID</th>
+                            <th>Book ID</th>
                             <th>Order Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
+                        <?php
                         $stmt = $pdo->prepare("SELECT c.* , b.*,u.* FROM command c,book b,client u  WHERE c.bid = b.bid AND c.cid = u.cid LIMIT 3");
                         $stmt->execute();
                         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        if(!$arr) exit('No Orders Yet');
-                        else{
-                            foreach($arr as $row){
-                                ?>
+                        if (!$arr) exit('No Orders Yet');
+                        else {
+                            foreach ($arr as $row) {
+                        ?>
                                 <tr>
                                     <td><?= $row['cid'] ?></td>
                                     <td><?= $row['firstname'] ?></td>
@@ -172,14 +173,14 @@
                                     <td><?= $row['bid'] ?></td>
                                     <td><?= $row['cdate'] ?></td>
                                     <td><?= $row['state'] ?></td>
-                                <?php
+                            <?php
                             }
                         }
-                    ?>
+                            ?>
                     </tbody>
                 </table>
                 <a href="../AdminDashboard/orders/orders.php">Show All</a>
-            </div>     
+            </div>
         </main>
 
         <div class="right-section">
@@ -212,7 +213,7 @@
                                 notifications_none
                             </span>
                         </div>
-        
+
                         <div class="notification">
                             <div class="icon">
                                 <span class="material-icons-sharp">
@@ -231,7 +232,7 @@
                                 </span>
                             </div>
                         </div>
-        
+
                         <div class="notification deactive">
                             <div class="icon">
                                 <span class="material-icons-sharp">
@@ -249,13 +250,13 @@
                                     more_vert
                                 </span>
                             </div>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
-    <script src="index.js"></script>
+        <script src="index.js"></script>
 </body>
 
 </html>

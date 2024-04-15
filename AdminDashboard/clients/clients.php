@@ -1,9 +1,10 @@
 <?php
-    include("../connect.php");
-    if ($_SESSION['adminAuth'] !== 'yes') {
-        header('location: ../Index.php');
-        exit();
-    }
+include("../../connect.php");
+
+if ($_SESSION['adminAuth'] !== 'yes') {
+    header('location: ../Index.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +48,7 @@
                     </span>
                     <h3>Home</h3>
                 </a>
-                <a href="http://localhost/bookstore-web-project/bookstore-web-project/AdminDashboard/clients/editClient1.php">
+                <a href="../orders/orders.php">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
@@ -66,7 +67,7 @@
                     </span>
                     <h3>Users</h3>
                 </a>
-                <a href="#">
+                <a href="../../Login/logout.php">
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -115,7 +116,7 @@
                                 echo '<tr><td colspan="5">No clients found</td></tr>';
                             } else {
                                 foreach ($clients as $client) {
-                                    ?>
+                        ?>
                                     <tr>
                                         <td><?= $client['cid'] ?></td>
                                         <td><?= $client['firstname'] ?></td>
@@ -139,7 +140,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                <?php
+                        <?php
                                 }
                             }
                         } catch (PDOException $e) {

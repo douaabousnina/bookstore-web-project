@@ -38,10 +38,23 @@
             <li class="nav-item">
               <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
+            <?php
 
-            <li class="nav-item">
-              <a class="nav-link" href="register.php">SIGN IN</a>
-            </li>
+              if (@$_SESSION["logged_in"] === 'yes') {
+                echo '
+                <li class="nav-item">
+                  <a class="nav-link" href="Login/logout.php">LOG OUT</a>
+                </li>
+                ';
+              } else {
+                echo '
+                <li class="nav-item">
+                  <a class="nav-link" href="Login/register.php">SIGN IN</a>
+                </li>
+                ';
+              }
+            
+            ?>
 
           </ul>
         </div>
@@ -51,7 +64,7 @@
 
   <?php
   session_start();
-  if ($_SESSION["permission"] != "yes") {
+  if ($_SESSION["logged_in"] != "yes") {
     header("location:login.php");
     exit();
   }
