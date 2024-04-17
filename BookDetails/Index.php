@@ -52,10 +52,10 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Books">BOOKS</a>
+              <a class="nav-link" href="Books/Index.php">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../Cart/">CART</a>
+              <a class="nav-link" href="Cart/cart copy.php">CART</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../faq.php">FAQ</a>
@@ -191,7 +191,7 @@
         </div>
         <?php
           // check if the book is already in cart, if so we write a text else we write a btn-add-to-cart button
-          $query = "SELECT bid FROM command WHERE cid='".$_SESSION['id']."' AND bid='$id'";
+          $query = "SELECT bid FROM command WHERE cid='".$_SESSION['cid']."' AND bid='$id'";
           $stmt = $pdo->prepare($query);
           $stmt->execute();
           $val = $stmt->fetchAll();
