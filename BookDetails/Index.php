@@ -35,11 +35,11 @@
       }
     }
   ?>
- <header>
+  <header>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="../Index.php">
-          <i class="fas fa-book-reader fa-2x mx-3"></i>Books</a>
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-book-reader fa-2x mx-3"></i>Bookini</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-align-right text-light"></i>
         </button>
@@ -52,39 +52,28 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Books/Index.php">BOOKS</a>
+              <a class="nav-link" href="../Books">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Cart/cart copy.php">CART</a>
+              <a class="nav-link" href="../Cart/">CART</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
-
-            <?php
-
-              if (@$_SESSION["logged_in"] === 'yes') {
-                echo '
-                <li class="nav-item">
-                  <a class="nav-link" href="../Login/logout.php">LOG OUT</a>
-                </li>
-                ';
-              } else {
-                echo '
-                <li class="nav-item">
-                  <a class="nav-link" href="../Login/register.php">SIGN IN</a>
-                </li>
-                ';
-              }
-            
-            ?>
-
+            <li class="nav-item">
+              <?php
+                if(isset($_SESSION['id'])){
+                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
+                }else{
+                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
+                }
+              ?>
+            </li>
           </ul>
         </div>
       </nav>
     </div>
   </header>
-
   <main>
     <!--https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg-->
     <section class="description-sec">
@@ -191,7 +180,7 @@
         </div>
         <?php
           // check if the book is already in cart, if so we write a text else we write a btn-add-to-cart button
-          $query = "SELECT bid FROM command WHERE cid='".$_SESSION['cid']."' AND bid='$id'";
+          $query = "SELECT bid FROM command WHERE cid='".$_SESSION['id']."' AND bid='$id'";
           $stmt = $pdo->prepare($query);
           $stmt->execute();
           $val = $stmt->fetchAll();

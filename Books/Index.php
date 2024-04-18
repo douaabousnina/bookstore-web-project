@@ -19,8 +19,8 @@
   <header>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="../Index.php">
-          <i class="fas fa-book-reader fa-2x mx-3"></i>Books</a>
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-book-reader fa-2x mx-3"></i>Bookini</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-align-right text-light"></i>
         </button>
@@ -41,30 +41,19 @@
             <li class="nav-item">
               <a class="nav-link" href="../faq.php">FAQ</a>
             </li>
-            <?php
-
-            if (@$_SESSION["logged_in"] === 'yes') {
-              echo '
-              <li class="nav-item">
-                <a class="nav-link" href="../Login/logout.php">LOG OUT</a>
-              </li>
-              ';
-            } else {
-              echo '
-              <li class="nav-item">
-                <a class="nav-link" href="../Login/register.php">SIGN IN</a>
-              </li>
-              ';
-            }
-            
-            ?>
-
+            <li class="nav-item">
+              <?php
+                if(isset($_SESSION['id'])){
+                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
+                }else{
+                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
+                }
+              ?>
+            </li>
           </ul>
         </div>
       </nav>
     </div>
-
-
     <div class="container text-center">
       <div class="row">
         <div class="col-md-7 col-sm-12  text-white">
