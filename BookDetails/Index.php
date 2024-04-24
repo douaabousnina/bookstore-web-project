@@ -15,25 +15,25 @@
 </head>
 
 <body>
-  <?php include '../connect.php'; 
-    if (isset($_GET['id'])) {
-      $id = $_GET['id'];
-      $sql = "SELECT * FROM book WHERE bid =" . '"'. $id . '"';
-      $stmt = $pdo->prepare($sql);
-      $stmt->execute();
-      $title = "";
-      $author = "";
-      $description = "";
-      $price = 0;
-      $coverid = 0;
-      while ($row = $stmt->fetch()) {
-        $title = $row['btitle'];
-        $author = $row['bauthor'];
-        $description = $row['bdescription'];
-        $price = $row['bprice'];
-        $coverid = $row['bcoverid'];
-      }
+  <?php include '../connect.php';
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM book WHERE bid =" . '"' . $id . '"';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $title = "";
+    $author = "";
+    $description = "";
+    $price = 0;
+    $coverid = 0;
+    while ($row = $stmt->fetch()) {
+      $title = $row['btitle'];
+      $author = $row['bauthor'];
+      $description = $row['bdescription'];
+      $price = $row['bprice'];
+      $coverid = $row['bcoverid'];
     }
+  }
   ?>
   <header>
     <div class="container-fluid p-0">
@@ -63,9 +63,9 @@
             <li class="nav-item">
               <?php
                 if(isset($_SESSION['id'])){
-                  echo '<a class="nav-link" href="../Login/logout.php">LOGOUT</a>';
+                  echo '<a class="nav-link" href="Login/logout.php">LOGOUT</a>';
                 }else{
-                  echo '<a class="nav-link" href="../Login/login.php">SIGN IN</a>';
+                  echo '<a class="nav-link" href="Login/login.php">SIGN IN</a>';
                 }
               ?>
             </li>
@@ -78,7 +78,7 @@
     <!--https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg-->
     <section class="description-sec">
       <div class="image-container">
-        <img class="book-cover" src=<?php echo '"https://covers.openlibrary.org/b/olid/'.$coverid.'-L.jpg"'?> alt="book cover" />
+        <img class="book-cover" src=<?php echo '"https://covers.openlibrary.org/b/olid/' . $coverid . '-L.jpg"' ?> alt="book cover" />
       </div>
       <div class="description-container">
         <div class="title">
@@ -95,7 +95,7 @@
           <span class="preorder-tag"></span>&nbsp;Pre-order Price Guarantee.
         </div>
         <div class="description-text">
-          Preorder now and receive the stunning DELUXE LIMITED EDITION while supplies last―featuring gorgeous sprayed edges with stenciled artwork, 
+          Preorder now and receive the stunning DELUXE LIMITED EDITION while supplies last―featuring gorgeous sprayed edges with stenciled artwork,
           as well as exclusive special design features. This incredible collectible is only available for a limited time, a must-have for any book lover while supplies last in the US and Canada only.
           Get ready to fly or die in the breathtaking follow-up to Fourth Wing and Iron Flame from #1 New York Times bestselling author Rebecca Yarros.
         </div>
@@ -144,7 +144,7 @@
             </div>
             <img class="general-item-image" src="../assets/barcode.png" alt="item content" />
             <div class="general-item-value">
-                OL1077449W
+              OL1077449W
             </div>
           </div>
         </div>
@@ -164,13 +164,13 @@
         </div>
         <div class="actual-price">
           <span class="normal-text">List Price:</span>
-          <span class="price3"><s><?php echo round($price*4/3, 2) ?> TND</s></span>
+          <span class="price3"><s><?php echo round($price * 4 / 3, 2) ?> TND</s></span>
         </div>
         <div class="actual-price">
-          <span class="normal-text">Save: <?php echo round($price*4/3 -$price, 2) ?> TND</span>
+          <span class="normal-text">Save: <?php echo round($price * 4 / 3 - $price, 2) ?> TND</span>
         </div>
         <div class="normal-text">
-        <?php echo $price +20.45 ?> TND Shipping & Import Fees Deposit to Tunisia
+          <?php echo $price + 20.45 ?> TND Shipping & Import Fees Deposit to Tunisia
         </div>
         <div class="normal-text">
           Delivery <span class="buy-new-text">Wednesday, January 22, 2025</span>
@@ -179,16 +179,16 @@
           This title will be released on January 21, 2025.
         </div>
         <?php
-          // check if the book is already in cart, if so we write a text else we write a btn-add-to-cart button
-          $query = "SELECT bid FROM command WHERE cid='".$_SESSION['id']."' AND bid='$id'";
-          $stmt = $pdo->prepare($query);
-          $stmt->execute();
-          $val = $stmt->fetchAll();
-          if($val){
-            echo '<p class="already-in-cart">This book is already in your cart</p>';
-          }else{
-            echo '<button id="btn-add-to-cart" class="btn-add-to-cart" onclick="add_to_cart(\''.$id.'\')">Add to Cart &nbsp;<span class="cart-tag"></span></button>';
-          }
+        // check if the book is already in cart, if so we write a text else we write a btn-add-to-cart button
+        $query = "SELECT bid FROM command WHERE cid='" . $_SESSION['id'] . "' AND bid='$id'";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $val = $stmt->fetchAll();
+        if ($val) {
+          echo '<p class="already-in-cart">This book is already in your cart</p>';
+        } else {
+          echo '<button id="btn-add-to-cart" class="btn-add-to-cart" onclick="add_to_cart(\'' . $id . '\')">Add to Cart &nbsp;<span class="cart-tag"></span></button>';
+        }
         ?>
         <!--button class="btn-add-to-cart">Add to Cart &nbsp;<span class="cart-tag"></span></button-->
         <table class="buy-info">

@@ -95,6 +95,7 @@
           }
 
           $_SESSION["logged_in"] = "yes";
+          $_SESSION['id'] = $user[''];
           $_SESSION["username"] = ucfirst($user["lastname"]) . " " . ucfirst($user["firstname"]);
           header("location: session.php");
 

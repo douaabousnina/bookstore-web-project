@@ -84,8 +84,8 @@ require 'phpmailer/vendor/autoload.php';
     $mail->isSMTP();
     $mail->SMTPAuth   = true;
     $mail->Host       = 'smtp.gmail.com';
-    $mail->Username   = 'insatbookini@gmail.com';
-    $mail->Password   = 'secret123.';
+    $mail->Username   = 'bousninadoua@gmail.com';                    
+    $mail->Password   = 'kloi lghx vity bupx';  
 
     $mail->SMTPSecure = "tls";
     $mail->Port       = 587;

@@ -56,7 +56,7 @@ function add_to_cart(id) {
                 element = document.getElementById('btn'+id);
                 element2 = document.createElement('span');
                 element2.setAttribute('class', 'already-in-cart');
-                element2.innerHTML = 'Book already in cart';
+                element2.innerHTML = 'Book Added To Cart';
                 element.parentNode.replaceChild(element2, element);
             }else {
                 alert('Added to Cart');

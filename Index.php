@@ -27,15 +27,15 @@
           <div class="mr-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="">HOME
+              <a class="nav-link" href="./Index.php">HOME
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Books">BOOKS</a>
+              <a class="nav-link" href="Books/Index.php">BOOKS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Cart">CART</a>
+              <a class="nav-link" href="Cart/index.php">CART</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="faq.php">FAQ</a>
